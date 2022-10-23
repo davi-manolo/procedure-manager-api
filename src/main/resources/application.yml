@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Procedure Manager
+
+info:
+  app:
+    description: '@project.description@'
+    encoding: '@project.build.sourceEncoding@'
+    name: '@project.name@'
+    version: '@project.version@'
+    java:
+      version: '@java.version@'
