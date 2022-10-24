@@ -11,7 +11,10 @@ public enum ExceptionMessage {
     DATABASE_PROCEDURE_TYPE_DOES_NOT_EXIST("error.database.procedure-type-does-not-exist"),
     DATABASE_PROCEDURE_TYPE_LIST_DOES_NOT_EXIST("error.database.procedure-type-list-does-not-exist"),
     DATABASE_PROCEDURE_DOES_NOT_EXIST("error.database.procedure-does-not-exist"),
-    DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST("error.database.procedure-list-does-not-exist");
+    DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST("error.database.procedure-list-does-not-exist"),
+    VALIDATION_REQUEST("error.validation"),
+    MISSING_PARAMETER_REQUEST("missing.parameter.request"),
+    INVALID_PARAMETER_REQUEST("invalid.parameter.request");
 
     private final String messageKey;
 

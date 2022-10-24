@@ -36,4 +36,8 @@ public class ExceptionResponse {
     @ApiModelProperty(name = "errorList", value = "Lista de erros")
     private List<ObjectError> errorList;
 
+    @JsonInclude(JsonInclude.Include.NON_ABSENT)
+    @ApiModelProperty(name = "errorMessageList", value = "Lista de erros")
+    private List<String> errorMessageList;
+
 }

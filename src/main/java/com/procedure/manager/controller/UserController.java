@@ -6,9 +6,15 @@ import com.procedure.manager.domain.response.UserResponse;
 import com.procedure.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
+
+@Validated
 @RestController
 @RequestMapping("/v1")
 public class UserController {
@@ -21,13 +27,16 @@ public class UserController {
 
     @PostMapping("/user/register")
     @ResponseStatus(HttpStatus.OK)
-    public void registerUser(@RequestBody UserRequest userRequest) {
+    public void registerUser(@Valid @RequestBody UserRequest userRequest) {
         userService.registerUser(userMapper.requestToVo(userRequest));
     }
 
     @GetMapping("/user/get")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse registerUser(@RequestParam("userMail") String userMail) {
+    public UserResponse registerUser(
+            @NotBlank(message = "{validation.email.notBlank}")
+            @Email(message = "{validation.email.notValid}")
+            @RequestParam("userMail") String userMail) {
         return userMapper.voToResponse(userService.getUser(userMail));
     }
 
