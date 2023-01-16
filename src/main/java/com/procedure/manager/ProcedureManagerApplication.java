@@ -9,7 +9,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class ProcedureManagerApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(ProcedureManagerApplication.class, args);
 	}
 

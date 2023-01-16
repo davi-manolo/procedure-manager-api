@@ -27,19 +27,10 @@ import java.util.Optional;
 
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_DOES_NOT_EXIST;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST;
-import static com.procedure.manager.domain.mother.ProcedureMother.getDataToCreateProcedureVo;
-import static com.procedure.manager.domain.mother.ProcedureMother.getEmptyProcedureModelListOptional;
-import static com.procedure.manager.domain.mother.ProcedureMother.getEmptyProcedureModelOptional;
-import static com.procedure.manager.domain.mother.ProcedureMother.getProcedureDisabledModel;
-import static com.procedure.manager.domain.mother.ProcedureMother.getProcedureModel;
-import static com.procedure.manager.domain.mother.ProcedureMother.getProcedureModelListOptional;
-import static com.procedure.manager.domain.mother.ProcedureMother.getProcedureModelOptional;
-import static com.procedure.manager.domain.mother.ProcedureMother.getProcedureVo;
+import static com.procedure.manager.domain.mother.ProcedureMother.*;
 import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeVo;
 import static com.procedure.manager.domain.mother.UserMother.getUserVo;
-import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
@@ -114,20 +105,23 @@ class ProcedureServiceUnitTest {
     void givenMonthYearUserIdWhenCallGetProcedureListByPeriodThenThrowDatabaseException() {
 
         Optional<List<ProcedureModel>> optionalProcedureModel = getProcedureModelListOptional();
+        List<ProcedureVo> procedureVoList = getProcedureVoList();
 
         when(procedureRepository
                 .findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(
                         any(), any(), any()))
                 .thenReturn(optionalProcedureModel);
+        when(procedureMapper.modelToVoList(optionalProcedureModel.get())).thenReturn(procedureVoList);
 
-        procedureService.getProcedureListByPeriod(month, year, userId);
+        List<ProcedureVo> result = procedureService.getProcedureListByPeriod(month, year, userId);
 
-        assertEquals(1L, optionalProcedureModel.get().get(0).getProcedureId());
-        assertEquals(LocalDate.of(2022, Month.SEPTEMBER, 5), optionalProcedureModel.get().get(0).getProcedureDate());
-        assertEquals("Cliente Beltrano", optionalProcedureModel.get().get(0).getCustomer());
-        assertEquals("Tipo de Procedimento", optionalProcedureModel.get().get(0).getProcedureType().getName());
-        assertEquals(BigDecimal.valueOf(800.00), optionalProcedureModel.get().get(0).getValue());
-        assertEquals(BigDecimal.valueOf(240.00), optionalProcedureModel.get().get(0).getValueReceived());
+        assertEquals(result.size(), optionalProcedureModel.get().size());
+        assertEquals(result.get(0).getProcedureId(), optionalProcedureModel.get().get(0).getProcedureId());
+        assertEquals(result.get(0).getProcedureDate(), optionalProcedureModel.get().get(0).getProcedureDate());
+        assertEquals(result.get(0).getCustomer(), optionalProcedureModel.get().get(0).getCustomer());
+        assertEquals(result.get(0).getProcedureType().getName(), optionalProcedureModel.get().get(0).getProcedureType().getName());
+        assertEquals(result.get(0).getValue(), optionalProcedureModel.get().get(0).getValue());
+        assertEquals(result.get(0).getReceivedValue(), optionalProcedureModel.get().get(0).getValueReceived());
 
         verify(procedureRepository).findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(any(), any(),any());
         verify(procedureMapper).modelToVoList(anyList());
@@ -157,17 +151,19 @@ class ProcedureServiceUnitTest {
     void givenProcedureIdWhenCallGetProcedureThenReturnProcedure() {
 
         Optional<ProcedureModel> optionalProcedureModel = getProcedureModelOptional();
+        ProcedureVo procedureVo = getProcedureVo();
 
         when(procedureRepository.findById(procedureId)).thenReturn(optionalProcedureModel);
+        when(procedureMapper.modelToVo(optionalProcedureModel.get())).thenReturn(procedureVo);
 
-        procedureService.getProcedure(procedureId);
+        ProcedureVo result = procedureService.getProcedure(procedureId);
 
-        assertEquals(1L, optionalProcedureModel.get().getProcedureId());
-        assertEquals(LocalDate.of(2022, Month.SEPTEMBER, 5), optionalProcedureModel.get().getProcedureDate());
-        assertEquals("Cliente Beltrano", optionalProcedureModel.get().getCustomer());
-        assertEquals("Tipo de Procedimento", optionalProcedureModel.get().getProcedureType().getName());
-        assertEquals(BigDecimal.valueOf(800.00), optionalProcedureModel.get().getValue());
-        assertEquals(BigDecimal.valueOf(240.00), optionalProcedureModel.get().getValueReceived());
+        assertEquals(result.getProcedureId(), optionalProcedureModel.get().getProcedureId());
+        assertEquals(result.getProcedureDate(), optionalProcedureModel.get().getProcedureDate());
+        assertEquals(result.getCustomer(), optionalProcedureModel.get().getCustomer());
+        assertEquals(result.getProcedureType().getName(), optionalProcedureModel.get().getProcedureType().getName());
+        assertEquals(result.getValue(), optionalProcedureModel.get().getValue());
+        assertEquals(result.getReceivedValue(), optionalProcedureModel.get().getValueReceived());
 
         verify(procedureMapper).modelToVo(optionalProcedureModel.get());
 
@@ -205,7 +201,7 @@ class ProcedureServiceUnitTest {
         assertEquals(procedureModel.getCustomer(), procedureVo.getCustomer());
         assertEquals(procedureModel.getValue(), procedureVo.getValue());
         assertEquals(procedureModel.getValueReceived(), procedureVo.getReceivedValue());
-        assertEquals(TRUE, procedureModel.getDisabled());
+        assertTrue(procedureModel.getDisabled());
 
         verify(procedureRepository).findById(procedureId);
         verify(procedureRepository).save(procedureModel);

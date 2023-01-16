@@ -20,22 +20,12 @@ import java.util.Optional;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_TYPE_DOES_NOT_EXIST;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_TYPE_LIST_DOES_NOT_EXIST;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getEmptyProcedureTypeModelListOptional;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getEmptyProcedureTypeModelOptional;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeDisabledModel;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeEditedModel;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeModel;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeModelListOptional;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeModelOptional;
-import static com.procedure.manager.domain.mother.ProcedureTypeMother.getProcedureTypeVo;
+import static com.procedure.manager.domain.mother.ProcedureTypeMother.*;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -103,15 +93,17 @@ class ProcedureTypeServiceUnitTest {
 
         ProcedureTypeModel procedureTypeModel = getProcedureTypeModel();
         Optional<ProcedureTypeModel> optionalProcedureTypeModel = getProcedureTypeModelOptional();
+        ProcedureTypeVo procedureTypeVo = getProcedureTypeVo();
 
         when(procedureTypeRepository.findById(id)).thenReturn(optionalProcedureTypeModel);
+        when(procedureTypeMapper.modelToVo(optionalProcedureTypeModel.get())).thenReturn(procedureTypeVo);
 
-        procedureTypeService.getProcedureType(id);
+        ProcedureTypeVo result = procedureTypeService.getProcedureType(id);
 
-        assertEquals(1L, procedureTypeModel.getProcedureTypeId());
-        assertEquals("Tipo de Procedimento", procedureTypeModel.getName());
-        assertEquals(30.00, procedureTypeModel.getPercentage());
-        assertEquals(FALSE, procedureTypeModel.getDisabled());
+        assertEquals(result.getProcedureTypeId(), procedureTypeModel.getProcedureTypeId());
+        assertEquals(result.getName(), procedureTypeModel.getName());
+        assertEquals(result.getPercentage(), procedureTypeModel.getPercentage());
+        assertEquals(result.getDisabled(), procedureTypeModel.getDisabled());
 
         verify(procedureTypeMapper).modelToVo(optionalProcedureTypeModel.get());
 
@@ -137,17 +129,19 @@ class ProcedureTypeServiceUnitTest {
     void givenProcedureTypeListVoWhenCallGetProcedureTypeListThenReturnProcedureTypeList() {
 
         Optional<List<ProcedureTypeModel>> optionalProcedureTypeListModel = getProcedureTypeModelListOptional();
+        List<ProcedureTypeVo> procedureTypeVoList = getProcedureTypeVoList();
 
         when(procedureTypeRepository.findByDisabledIsFalseOrderByNameAsc()).thenReturn(optionalProcedureTypeListModel);
+        when(procedureTypeMapper.modelListToVoList(optionalProcedureTypeListModel.get())).thenReturn(procedureTypeVoList);
 
-        procedureTypeService.getProcedureTypeList();
+        List<ProcedureTypeVo> result = procedureTypeService.getProcedureTypeList();
 
-        assertEquals(TRUE, optionalProcedureTypeListModel.isPresent());
-        assertEquals(1, optionalProcedureTypeListModel.get().size());
-        assertEquals(1L, optionalProcedureTypeListModel.get().get(0).getProcedureTypeId());
-        assertEquals("Tipo de Procedimento", optionalProcedureTypeListModel.get().get(0).getName());
-        assertEquals(30.00, optionalProcedureTypeListModel.get().get(0).getPercentage());
-        assertEquals(FALSE, optionalProcedureTypeListModel.get().get(0).getDisabled());
+        assertTrue(optionalProcedureTypeListModel.isPresent());
+        assertEquals(result.size(), optionalProcedureTypeListModel.get().size());
+        assertEquals(result.get(0).getProcedureTypeId(), optionalProcedureTypeListModel.get().get(0).getProcedureTypeId());
+        assertEquals(result.get(0).getName(), optionalProcedureTypeListModel.get().get(0).getName());
+        assertEquals(result.get(0).getPercentage(), optionalProcedureTypeListModel.get().get(0).getPercentage());
+        assertEquals(result.get(0).getDisabled(), optionalProcedureTypeListModel.get().get(0).getDisabled());
 
         verify(procedureTypeRepository).findByDisabledIsFalseOrderByNameAsc();
         verify(procedureTypeMapper).modelListToVoList(anyList());

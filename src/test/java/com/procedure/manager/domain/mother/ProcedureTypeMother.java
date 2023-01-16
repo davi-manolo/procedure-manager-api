@@ -63,4 +63,8 @@ public class ProcedureTypeMother {
         return Optional.empty();
     }
 
+    public static List<ProcedureTypeVo> getProcedureTypeVoList() {
+        return List.of(getProcedureTypeVo());
+    }
+
 }

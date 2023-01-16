@@ -91,16 +91,18 @@ class UserServiceUnitTest {
 
         UserModel userModel = getUserModel();
         Optional<UserModel> optionalUserModel = getUserModelOptional();
+        UserVo userVo = getUserVo();
 
         when(userRepository.findByEmailIgnoreCase(email)).thenReturn(optionalUserModel);
+        when(userMapper.modelToVo(optionalUserModel.get())).thenReturn(userVo);
 
-        userService.getUser(email);
+        UserVo result = userService.getUser(email);
 
-        assertEquals("Fulano", userModel.getName());
-        assertEquals("Ciclano", userModel.getSurName());
-        assertEquals("fulano.ciclano@email.com", userModel.getEmail());
-        assertEquals("123abc", userModel.getPassword());
-        assertEquals(1L, userModel.getUserId());
+        assertEquals(result.getName(), userModel.getName());
+        assertEquals(result.getSurName(), userModel.getSurName());
+        assertEquals(result.getEmail(), userModel.getEmail());
+        assertEquals(result.getPassword(), userModel.getPassword());
+        assertEquals(result.getUserId(), userModel.getUserId());
 
         verify(userMapper).modelToVo(optionalUserModel.get());
 
@@ -111,16 +113,18 @@ class UserServiceUnitTest {
 
         UserModel userModel = getUserModel();
         Optional<UserModel> optionalUserModel = getUserModelOptional();
+        UserVo userVo = getUserVo();
 
         when(userRepository.findById(id)).thenReturn(optionalUserModel);
+        when(userMapper.modelToVo(optionalUserModel.get())).thenReturn(userVo);
 
-        userService.getUser(id);
+        UserVo result = userService.getUser(id);
 
-        assertEquals("Fulano", userModel.getName());
-        assertEquals("Ciclano", userModel.getSurName());
-        assertEquals("fulano.ciclano@email.com", userModel.getEmail());
-        assertEquals("123abc", userModel.getPassword());
-        assertEquals(1L, userModel.getUserId());
+        assertEquals(result.getName(), userModel.getName());
+        assertEquals(result.getSurName(), userModel.getSurName());
+        assertEquals(result.getEmail(), userModel.getEmail());
+        assertEquals(result.getPassword(), userModel.getPassword());
+        assertEquals(result.getUserId(), userModel.getUserId());
 
         verify(userMapper).modelToVo(optionalUserModel.get());
 
