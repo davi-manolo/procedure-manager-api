@@ -26,7 +26,7 @@ public class ProcedureResponse {
     @JsonProperty("procedureValue")
     private BigDecimal procedureValue;
 
-    @JsonProperty("receivedValue")
-    private BigDecimal receivedValue;
+    @JsonProperty("valueReceived")
+    private BigDecimal valueReceived;
 
 }

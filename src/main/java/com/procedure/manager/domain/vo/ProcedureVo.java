@@ -19,7 +19,7 @@ public class ProcedureVo {
     private String customer;
     private BigDecimal value;
     private ProcedureTypeVo procedureType;
-    private BigDecimal receivedValue;
+    private BigDecimal valueReceived;
     private LocalDateTime registrationDate;
     private Boolean disabled;
 

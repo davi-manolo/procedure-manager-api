@@ -121,7 +121,7 @@ class ProcedureServiceUnitTest {
         assertEquals(result.get(0).getCustomer(), optionalProcedureModel.get().get(0).getCustomer());
         assertEquals(result.get(0).getProcedureType().getName(), optionalProcedureModel.get().get(0).getProcedureType().getName());
         assertEquals(result.get(0).getValue(), optionalProcedureModel.get().get(0).getValue());
-        assertEquals(result.get(0).getReceivedValue(), optionalProcedureModel.get().get(0).getValueReceived());
+        assertEquals(result.get(0).getValueReceived(), optionalProcedureModel.get().get(0).getValueReceived());
 
         verify(procedureRepository).findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(any(), any(),any());
         verify(procedureMapper).modelToVoList(anyList());
@@ -163,7 +163,7 @@ class ProcedureServiceUnitTest {
         assertEquals(result.getCustomer(), optionalProcedureModel.get().getCustomer());
         assertEquals(result.getProcedureType().getName(), optionalProcedureModel.get().getProcedureType().getName());
         assertEquals(result.getValue(), optionalProcedureModel.get().getValue());
-        assertEquals(result.getReceivedValue(), optionalProcedureModel.get().getValueReceived());
+        assertEquals(result.getValueReceived(), optionalProcedureModel.get().getValueReceived());
 
         verify(procedureMapper).modelToVo(optionalProcedureModel.get());
 
@@ -200,7 +200,7 @@ class ProcedureServiceUnitTest {
         assertEquals(procedureModel.getProcedureId(), procedureVo.getProcedureId());
         assertEquals(procedureModel.getCustomer(), procedureVo.getCustomer());
         assertEquals(procedureModel.getValue(), procedureVo.getValue());
-        assertEquals(procedureModel.getValueReceived(), procedureVo.getReceivedValue());
+        assertEquals(procedureModel.getValueReceived(), procedureVo.getValueReceived());
         assertTrue(procedureModel.getDisabled());
 
         verify(procedureRepository).findById(procedureId);

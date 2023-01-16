@@ -118,7 +118,7 @@ public class ProcedureServiceImpl implements ProcedureService {
         procedureVo.setProcedureDate(procedureCreationDataVo.getProcedureDate());
         procedureVo.setCustomer(procedureCreationDataVo.getCustomer());
         procedureVo.setValue(procedureCreationDataVo.getValue());
-        procedureVo.setReceivedValue(calculateAmountReceivable(procedureCreationDataVo.getValue(), percentage));
+        procedureVo.setValueReceived(calculateAmountReceivable(procedureCreationDataVo.getValue(), percentage));
         return procedureVo;
     }
 

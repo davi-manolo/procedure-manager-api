@@ -53,7 +53,7 @@ public class ProcedureMother {
         procedureVo.setProcedureDate(LocalDate.of(2022, Month.SEPTEMBER, 5));
         procedureVo.setCustomer("Cliente Beltrano");
         procedureVo.setValue(BigDecimal.valueOf(800.00));
-        procedureVo.setReceivedValue(BigDecimal.valueOf(240.00));
+        procedureVo.setValueReceived(BigDecimal.valueOf(240.00));
         procedureVo.setProcedureType(getProcedureTypeVo());
         procedureVo.setRegistrationDate(LocalDateTime.of(2022, Month.SEPTEMBER, 5, 10, 20, 30));
         procedureVo.setUser(getUserVo());
