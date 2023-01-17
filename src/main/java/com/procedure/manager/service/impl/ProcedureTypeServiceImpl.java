@@ -15,6 +15,7 @@ import java.util.Optional;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_TYPE_DOES_NOT_EXIST;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_PROCEDURE_TYPE_LIST_DOES_NOT_EXIST;
+import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -30,9 +31,15 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
 
     @Override
     public void registerProcedureType(ProcedureTypeVo procedureTypeVo) {
-        Optional<ProcedureTypeModel> optional = procedureTypeRepository.findByName(procedureTypeVo.getName());
+        Optional<ProcedureTypeModel> optional = procedureTypeRepository.findByNameIgnoreCase(procedureTypeVo.getName());
         if(optional.isPresent()) {
-            throw new DatabaseException(CONFLICT, DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS);
+            ProcedureTypeModel procedureTypeModel = optional.get();
+            if(Boolean.TRUE.equals(procedureTypeModel.getDisabled())) {
+                procedureTypeVo.setProcedureTypeId(procedureTypeModel.getProcedureTypeId());
+                procedureTypeVo.setDisabled(FALSE);
+            } else {
+                throw new DatabaseException(CONFLICT, DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS);
+            }
         }
         procedureTypeRepository.save(procedureTypeMapper.voToModel(procedureTypeVo));
     }

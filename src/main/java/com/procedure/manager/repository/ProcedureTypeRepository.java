@@ -12,6 +12,6 @@ public interface ProcedureTypeRepository extends JpaRepository<ProcedureTypeMode
 
     Optional<List<ProcedureTypeModel>> findByDisabledIsFalseOrderByNameAsc();
 
-    Optional<ProcedureTypeModel> findByName(String name);
+    Optional<ProcedureTypeModel> findByNameIgnoreCase(String name);
 
 }
