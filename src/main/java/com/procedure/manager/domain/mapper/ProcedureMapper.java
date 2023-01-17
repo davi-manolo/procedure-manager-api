@@ -24,7 +24,7 @@ public interface ProcedureMapper {
     @Mapping(source = "value", target = "procedureValue")
     ProcedureResponse voToResponse(ProcedureVo procedureVo);
 
-    List<ProcedureVo> modelToVoList(List<ProcedureModel> procedureModelList);
+    List<ProcedureVo> modelListToVoList(List<ProcedureModel> procedureModelList);
 
     ProcedureVo modelToVo(ProcedureModel procedureModel);
 

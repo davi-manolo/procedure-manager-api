@@ -76,7 +76,7 @@ public class ProcedureServiceImpl implements ProcedureService {
         if(optional.isEmpty()) {
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST);
         }
-        return procedureMapper.modelToVoList(optional.get());
+        return procedureMapper.modelListToVoList(optional.get());
 
     }
 

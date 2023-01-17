@@ -111,7 +111,7 @@ class ProcedureServiceUnitTest {
                 .findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(
                         any(), any(), any()))
                 .thenReturn(optionalProcedureModel);
-        when(procedureMapper.modelToVoList(optionalProcedureModel.get())).thenReturn(procedureVoList);
+        when(procedureMapper.modelListToVoList(optionalProcedureModel.get())).thenReturn(procedureVoList);
 
         List<ProcedureVo> result = procedureService.getProcedureListByPeriod(month, year, userId);
 
@@ -124,7 +124,7 @@ class ProcedureServiceUnitTest {
         assertEquals(result.get(0).getValueReceived(), optionalProcedureModel.get().get(0).getValueReceived());
 
         verify(procedureRepository).findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(any(), any(),any());
-        verify(procedureMapper).modelToVoList(anyList());
+        verify(procedureMapper).modelListToVoList(anyList());
 
     }
 
