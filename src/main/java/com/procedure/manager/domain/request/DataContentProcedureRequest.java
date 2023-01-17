@@ -22,7 +22,7 @@ public class DataContentProcedureRequest {
     @JsonProperty("procedureValue")
     private String procedureValue;
 
-    @JsonProperty("receivedValue")
-    private String receivedValue;
+    @JsonProperty("valueReceived")
+    private String valueReceived;
 
 }

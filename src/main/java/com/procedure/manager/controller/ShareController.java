@@ -1,5 +1,6 @@
 package com.procedure.manager.controller;
 
+import com.procedure.manager.domain.enumeration.Extension;
 import com.procedure.manager.domain.mapper.ShareMapper;
 import com.procedure.manager.domain.request.DataContentProcedureRequest;
 import com.procedure.manager.service.FileGeneratorService;
@@ -27,7 +28,7 @@ public class ShareController {
     @PostMapping("/share")
     @ResponseStatus(HttpStatus.OK)
     public String share(
-            @RequestParam("extension") String extension,
+            @RequestParam("extension") Extension extension,
             @RequestBody List<DataContentProcedureRequest> contentProcedureRequestList
     ) {
         return fileGeneratorService.generateFile(shareMapper.requestToVo(contentProcedureRequestList), extension);

@@ -14,7 +14,9 @@ public enum ExceptionMessage {
     DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST("error.database.procedure-list-does-not-exist"),
     VALIDATION_REQUEST("error.validation"),
     MISSING_PARAMETER_REQUEST("missing.parameter.request"),
-    INVALID_PARAMETER_REQUEST("invalid.parameter.request");
+    INVALID_PARAMETER_REQUEST("invalid.parameter.request"),
+    WORKBOOK_IO_ERROR("workbook.io.error"),
+    WORKBOOK_CONVERT_TO_ARRAY_ERROR("workbook.array.error");
 
     private final String messageKey;
 

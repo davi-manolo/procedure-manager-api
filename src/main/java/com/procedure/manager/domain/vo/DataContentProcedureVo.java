@@ -13,6 +13,6 @@ public class DataContentProcedureVo {
     private String customer;
     private String procedureTypeName;
     private String procedureValue;
-    private String receivedValue;
+    private String valueReceived;
 
 }
