@@ -65,7 +65,30 @@ class ProcedureTypeServiceUnitTest {
         assertEquals(30.00, procedureTypeVo.getPercentage());
         assertEquals(FALSE, procedureTypeVo.getDisabled());
 
-        verify(procedureTypeRepository).findByName(procedureTypeVo.getName());
+        verify(procedureTypeRepository).findByNameIgnoreCase(procedureTypeVo.getName());
+        verify(procedureTypeMapper).voToModel(procedureTypeVo);
+        verify(procedureTypeRepository).save(procedureTypeModel);
+
+    }
+
+    @Test
+    void givenProcedureTypeVoWhenCallRegisterProcedureTypeThenReEnableAndSaveProcedureType() {
+
+        ProcedureTypeVo procedureTypeVo = getProcedureTypeVo();
+        ProcedureTypeModel procedureTypeModel = getProcedureTypeModelWithDisableTrue();
+        Optional<ProcedureTypeModel> optionalProcedureTypeModel = getProcedureTypeModelOptionalWithDisableTrue();
+
+        when(procedureTypeRepository.findByNameIgnoreCase(anyString())).thenReturn(optionalProcedureTypeModel);
+        when(procedureTypeMapper.voToModel(any())).thenReturn(procedureTypeModel);
+
+        procedureTypeService.registerProcedureType(procedureTypeVo);
+
+        assertEquals(1L, procedureTypeVo.getProcedureTypeId());
+        assertEquals("Tipo de Procedimento", procedureTypeVo.getName());
+        assertEquals(30.00, procedureTypeVo.getPercentage());
+        assertEquals(FALSE, procedureTypeVo.getDisabled());
+
+        verify(procedureTypeRepository).findByNameIgnoreCase(procedureTypeVo.getName());
         verify(procedureTypeMapper).voToModel(procedureTypeVo);
         verify(procedureTypeRepository).save(procedureTypeModel);
 
@@ -77,14 +100,14 @@ class ProcedureTypeServiceUnitTest {
         ProcedureTypeVo procedureTypeVo = getProcedureTypeVo();
         Optional<ProcedureTypeModel> optionalProcedureTypeModel = getProcedureTypeModelOptional();
 
-        when(procedureTypeRepository.findByName(anyString())).thenReturn(optionalProcedureTypeModel);
+        when(procedureTypeRepository.findByNameIgnoreCase(anyString())).thenReturn(optionalProcedureTypeModel);
 
         DatabaseException databaseException = assertThrows(DatabaseException.class,
                 () -> procedureTypeService.registerProcedureType(procedureTypeVo));
 
         assertEquals(databaseException.getMessage(), DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS.getMessageKey());
 
-        verify(procedureTypeRepository).findByName(any());
+        verify(procedureTypeRepository).findByNameIgnoreCase(any());
 
     }
 

@@ -32,6 +32,12 @@ public class ProcedureTypeMother {
         return  procedureTypeModel;
     }
 
+    public static ProcedureTypeModel getProcedureTypeModelWithDisableTrue() {
+        ProcedureTypeModel procedureTypeModel = getProcedureTypeModel();
+        procedureTypeModel.setDisabled(TRUE);
+        return procedureTypeModel;
+    }
+
     public static ProcedureTypeModel getProcedureTypeEditedModel() {
         ProcedureTypeModel procedureTypeModel = new ProcedureTypeModel();
         procedureTypeModel.setProcedureTypeId(1L);
@@ -49,6 +55,10 @@ public class ProcedureTypeMother {
 
     public static Optional<ProcedureTypeModel> getProcedureTypeModelOptional() {
         return Optional.of(getProcedureTypeModel());
+    }
+
+    public static Optional<ProcedureTypeModel> getProcedureTypeModelOptionalWithDisableTrue() {
+        return Optional.of(getProcedureTypeModelWithDisableTrue());
     }
 
     public static Optional<ProcedureTypeModel> getEmptyProcedureTypeModelOptional() {
