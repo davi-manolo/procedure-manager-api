@@ -20,6 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
+@SuppressWarnings("unused")
 public class ProcedureController {
 
     @Autowired

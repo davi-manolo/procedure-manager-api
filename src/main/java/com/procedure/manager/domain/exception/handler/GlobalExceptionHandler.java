@@ -18,6 +18,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Slf4j
 @RestControllerAdvice
+@SuppressWarnings("unused")
 public class GlobalExceptionHandler {
 
     private final ExceptionResponseBuilder responseBuilder;

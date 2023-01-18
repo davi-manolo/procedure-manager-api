@@ -159,7 +159,6 @@ class ProcedureTypeServiceUnitTest {
 
         List<ProcedureTypeVo> result = procedureTypeService.getProcedureTypeList();
 
-        assertTrue(optionalProcedureTypeListModel.isPresent());
         assertEquals(result.size(), optionalProcedureTypeListModel.get().size());
         assertEquals(result.get(0).getProcedureTypeId(), optionalProcedureTypeListModel.get().get(0).getProcedureTypeId());
         assertEquals(result.get(0).getName(), optionalProcedureTypeListModel.get().get(0).getName());

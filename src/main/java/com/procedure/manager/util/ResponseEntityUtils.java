@@ -2,9 +2,12 @@ package com.procedure.manager.util;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 
 import static org.springframework.http.HttpStatus.*;
 
+@SuppressWarnings("unused")
+@Component
 public final class ResponseEntityUtils {
 
     private ResponseEntityUtils() {}

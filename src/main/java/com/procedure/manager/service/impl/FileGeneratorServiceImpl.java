@@ -17,6 +17,7 @@ import java.util.List;
 import static com.procedure.manager.util.DataEncoderUtils.encodeContent;
 
 @Service
+@SuppressWarnings("unused")
 public class FileGeneratorServiceImpl implements FileGeneratorService {
 
     @Autowired

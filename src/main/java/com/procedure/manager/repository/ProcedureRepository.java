@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@SuppressWarnings("all")
 public interface ProcedureRepository extends JpaRepository<ProcedureModel, Long> {
 
     Optional<List<ProcedureModel>> findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(

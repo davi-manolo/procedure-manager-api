@@ -1,6 +1,6 @@
 spring:
   application:
-    name: Procedure Manager
+    name: Procedure Manager API
 
 info:
   app:

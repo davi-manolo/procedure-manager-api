@@ -21,6 +21,7 @@ import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
+@SuppressWarnings("unused")
 public class ProcedureTypeServiceImpl implements ProcedureTypeService {
 
     @Autowired

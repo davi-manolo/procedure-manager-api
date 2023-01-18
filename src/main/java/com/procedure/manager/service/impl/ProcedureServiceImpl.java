@@ -24,6 +24,7 @@ import static java.lang.Boolean.TRUE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
+@SuppressWarnings("unused")
 public class ProcedureServiceImpl implements ProcedureService {
 
     @Autowired
