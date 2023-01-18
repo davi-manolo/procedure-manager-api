@@ -3,6 +3,7 @@ package com.procedure.manager.controller;
 import com.procedure.manager.domain.mapper.ProcedureMapper;
 import com.procedure.manager.domain.request.DataToCreateProcedureRequest;
 import com.procedure.manager.domain.response.ProcedureResponse;
+import com.procedure.manager.domain.vo.DataSearchProcedureMonthVo;
 import com.procedure.manager.service.ProcedureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,9 @@ public class ProcedureController {
             @RequestParam("year") int year,
             @RequestParam("userId") Long userId
     ) {
-        return procedureMapper.voToResponseList(procedureService.getProcedureListByPeriod(month, year, userId));
+        return procedureMapper.voToResponseList(procedureService.getProcedureListByPeriod(
+                new DataSearchProcedureMonthVo(month, year, userId))
+        );
     }
 
     @PatchMapping("/procedure/edit")

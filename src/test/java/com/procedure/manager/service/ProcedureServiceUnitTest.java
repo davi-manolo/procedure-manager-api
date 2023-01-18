@@ -3,10 +3,7 @@ package com.procedure.manager.service;
 import com.procedure.manager.domain.exception.DatabaseException;
 import com.procedure.manager.domain.mapper.ProcedureMapper;
 import com.procedure.manager.domain.model.ProcedureModel;
-import com.procedure.manager.domain.vo.ProcedureCreationDataVo;
-import com.procedure.manager.domain.vo.ProcedureTypeVo;
-import com.procedure.manager.domain.vo.ProcedureVo;
-import com.procedure.manager.domain.vo.UserVo;
+import com.procedure.manager.domain.vo.*;
 import com.procedure.manager.repository.ProcedureRepository;
 import com.procedure.manager.service.impl.ProcedureServiceImpl;
 import com.procedure.manager.service.impl.ProcedureTypeServiceImpl;
@@ -56,18 +53,16 @@ class ProcedureServiceUnitTest {
 
     private Long procedureTypeId;
     private Long procedureId;
+    private DataSearchProcedureMonthVo dataSearchProcedureMonthVo;
     private Long userId;
-    private int month;
-    private int year;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         this.procedureTypeId = 1L;
-        this.userId = 1L;
-        this.month = 9;
-        this.year = 2022;
+        this.dataSearchProcedureMonthVo = new DataSearchProcedureMonthVo(9, 2023, 1L);
         this.procedureId = 1L;
+        this.userId = 1L;
     }
 
     @Test
@@ -113,7 +108,7 @@ class ProcedureServiceUnitTest {
                 .thenReturn(optionalProcedureModel);
         when(procedureMapper.modelListToVoList(optionalProcedureModel.get())).thenReturn(procedureVoList);
 
-        List<ProcedureVo> result = procedureService.getProcedureListByPeriod(month, year, userId);
+        List<ProcedureVo> result = procedureService.getProcedureListByPeriod(dataSearchProcedureMonthVo);
 
         assertEquals(result.size(), optionalProcedureModel.get().size());
         assertEquals(result.get(0).getProcedureId(), optionalProcedureModel.get().get(0).getProcedureId());
@@ -139,7 +134,7 @@ class ProcedureServiceUnitTest {
                 .thenReturn(optionalProcedureModel);
 
         DatabaseException databaseException = assertThrows(DatabaseException.class,
-                () -> procedureService.getProcedureListByPeriod(month, year, userId));
+                () -> procedureService.getProcedureListByPeriod(dataSearchProcedureMonthVo));
 
         assertEquals(databaseException.getMessage(), DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST.getMessageKey());
 

@@ -4,7 +4,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
 @Component
@@ -17,6 +19,11 @@ public class DateUtils {
 
     public static LocalDateTime getFinalLocalDateTime(int month, int year) {
         return LocalDateTime.of(year, month, 1, 23, 59, 59).with(TemporalAdjusters.lastDayOfMonth());
+    }
+
+    public static String getLocalDateFormatted(LocalDate localDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return localDate.format(formatter);
     }
 
 }

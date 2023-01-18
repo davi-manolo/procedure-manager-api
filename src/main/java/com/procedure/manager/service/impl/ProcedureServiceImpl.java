@@ -3,10 +3,7 @@ package com.procedure.manager.service.impl;
 import com.procedure.manager.domain.exception.DatabaseException;
 import com.procedure.manager.domain.mapper.ProcedureMapper;
 import com.procedure.manager.domain.model.ProcedureModel;
-import com.procedure.manager.domain.vo.ProcedureCreationDataVo;
-import com.procedure.manager.domain.vo.ProcedureTypeVo;
-import com.procedure.manager.domain.vo.ProcedureVo;
-import com.procedure.manager.domain.vo.UserVo;
+import com.procedure.manager.domain.vo.*;
 import com.procedure.manager.repository.ProcedureRepository;
 import com.procedure.manager.service.ProcedureService;
 import com.procedure.manager.service.ProcedureTypeService;
@@ -66,13 +63,15 @@ public class ProcedureServiceImpl implements ProcedureService {
     }
 
     @Override
-    public List<ProcedureVo> getProcedureListByPeriod(int month, int year, Long userId) {
+    public List<ProcedureVo> getProcedureListByPeriod(DataSearchProcedureMonthVo dataSearchProcedureMonthVo) {
 
-        LocalDateTime startDate = getStartDate(month, year);
-        LocalDateTime endDate = getEndDate(month, year);
+        LocalDateTime startDate = getInitialLocalDateTime(dataSearchProcedureMonthVo.getMonth(), dataSearchProcedureMonthVo.getYear());
+        LocalDateTime endDate = getFinalLocalDateTime(dataSearchProcedureMonthVo.getMonth(), dataSearchProcedureMonthVo.getYear());
 
         Optional<List<ProcedureModel>> optional = procedureRepository
-                .findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(startDate, endDate, userId);
+                .findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(
+                        startDate, endDate, dataSearchProcedureMonthVo.getUserId()
+                );
         if(optional.isEmpty()) {
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST);
         }
@@ -103,6 +102,14 @@ public class ProcedureServiceImpl implements ProcedureService {
         procedureRepository.save(procedureMapper.voToModel(procedureVo));
     }
 
+    @Override
+    public BigDecimal calculateAmountReceivableByMonth(DataSearchProcedureMonthVo dataSearchProcedureMonthVo) {
+        List<ProcedureVo> procedureVoList = getProcedureListByPeriod(dataSearchProcedureMonthVo);
+        return procedureVoList.stream()
+                .map(ProcedureVo::getValueReceived)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
     private ProcedureVo createProcedure(ProcedureCreationDataVo procedureCreationDataVo, Double percentage) {
         ProcedureVo procedureVo = populateProcedure(procedureCreationDataVo, percentage);
         procedureVo.setRegistrationDate(LocalDateTime.now());
@@ -131,14 +138,6 @@ public class ProcedureServiceImpl implements ProcedureService {
 
     private BigDecimal calculateAmountReceivable(BigDecimal procedureValue, Double percentage) {
         return procedureValue.divide(BigDecimal.valueOf(100.00)).multiply(BigDecimal.valueOf(percentage));
-    }
-
-    private LocalDateTime getStartDate(int month, int year) {
-        return getInitialLocalDateTime(month, year);
-    }
-
-    private LocalDateTime getEndDate(int month, int year) {
-        return getFinalLocalDateTime(month, year);
     }
 
 }
