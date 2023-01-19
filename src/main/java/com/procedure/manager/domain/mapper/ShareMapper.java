@@ -1,7 +1,9 @@
 package com.procedure.manager.domain.mapper;
 
 import com.procedure.manager.domain.request.DataSearchProcedureMonthRequest;
+import com.procedure.manager.domain.response.FileResponse;
 import com.procedure.manager.domain.vo.DataSearchProcedureMonthVo;
+import com.procedure.manager.domain.vo.FileVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -9,5 +11,7 @@ import org.mapstruct.ReportingPolicy;
 public interface ShareMapper {
 
     DataSearchProcedureMonthVo requestToVo(DataSearchProcedureMonthRequest dataSearchProcedureMonthRequest);
+
+    FileResponse fileVoToFileResponse(FileVo fileVo);
 
 }

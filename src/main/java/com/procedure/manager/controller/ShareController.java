@@ -3,6 +3,7 @@ package com.procedure.manager.controller;
 import com.procedure.manager.domain.enumeration.Extension;
 import com.procedure.manager.domain.mapper.ShareMapper;
 import com.procedure.manager.domain.request.DataSearchProcedureMonthRequest;
+import com.procedure.manager.domain.response.FileResponse;
 import com.procedure.manager.service.FileGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,11 +27,13 @@ public class ShareController {
 
     @PostMapping("/share")
     @ResponseStatus(HttpStatus.OK)
-    public String share(
+    public FileResponse share(
             @RequestParam("extension") Extension extension,
             @RequestBody DataSearchProcedureMonthRequest dataSearchProcedureMonthRequest
     ) {
-        return fileGeneratorService.generateFile(shareMapper.requestToVo(dataSearchProcedureMonthRequest), extension);
+        return shareMapper.fileVoToFileResponse(
+                fileGeneratorService.generateFile(shareMapper.requestToVo(dataSearchProcedureMonthRequest), extension)
+        );
     }
 
 }

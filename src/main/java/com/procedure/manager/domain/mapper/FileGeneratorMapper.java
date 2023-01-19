@@ -15,7 +15,8 @@ import java.util.List;
 public interface FileGeneratorMapper {
 
     @Mapping(target = "totalReceived", expression = "java(FormatUtils.convertToMonetaryValue(totalReceived))")
+    @Mapping(target = "month", expression = "java(FormatUtils.convertNumberToMonth(month))")
     @Mapping(source = "procedureVoList", target = "procedureList")
-    DataContentForFileVo toDataContentForFileVo(BigDecimal totalReceived, List<ProcedureVo> procedureVoList);
+    DataContentForFileVo toDataContentForFileVo(Integer month, BigDecimal totalReceived, List<ProcedureVo> procedureVoList);
 
 }

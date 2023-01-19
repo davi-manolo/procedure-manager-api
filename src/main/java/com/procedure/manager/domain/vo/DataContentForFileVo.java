@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class DataContentForFileVo {
 
+    private String month;
     private String totalReceived;
     private List<ProcedureForFileVo> procedureList;
 

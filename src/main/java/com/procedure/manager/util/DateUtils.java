@@ -26,4 +26,10 @@ public class DateUtils {
         return localDate.format(formatter);
     }
 
+    public static String getLocalDateTimeFormattedNow() {
+        LocalDateTime ldt = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyHHmmss");
+        return ldt.format(dtf);
+    }
+
 }

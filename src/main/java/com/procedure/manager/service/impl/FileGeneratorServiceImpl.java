@@ -4,6 +4,7 @@ import com.procedure.manager.domain.enumeration.Extension;
 import com.procedure.manager.domain.mapper.FileGeneratorMapper;
 import com.procedure.manager.domain.vo.DataContentForFileVo;
 import com.procedure.manager.domain.vo.DataSearchProcedureMonthVo;
+import com.procedure.manager.domain.vo.FileVo;
 import com.procedure.manager.domain.vo.ProcedureVo;
 import com.procedure.manager.service.FileGeneratorService;
 import com.procedure.manager.service.ProcedureService;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.procedure.manager.util.DataEncoderUtils.encodeContent;
+import static com.procedure.manager.util.DateUtils.getLocalDateTimeFormattedNow;
 
 @Service
 @SuppressWarnings("unused")
@@ -29,13 +31,17 @@ public class FileGeneratorServiceImpl implements FileGeneratorService {
     @Autowired
     private FileGeneratorMapper fileGeneratorMapper;
 
+    private static final String PROCEDURE_REPORT = "Relatorio_Procedimentos";
+
     @Override
-    public String generateFile(DataSearchProcedureMonthVo dataSearchProcedureMonthVo, Extension extension) {
+    public FileVo generateFile(DataSearchProcedureMonthVo dataSearchProcedureMonthVo, Extension extension) {
 
         List<ProcedureVo> procedureVoList = procedureService.getProcedureListByPeriod(dataSearchProcedureMonthVo);
         BigDecimal totalReceived = procedureService.calculateAmountReceivableByMonth(dataSearchProcedureMonthVo);
 
-        DataContentForFileVo dataContentForFileVo = prepareDataForPrinting(procedureVoList, totalReceived);
+        DataContentForFileVo dataContentForFileVo = prepareDataForPrinting(
+                dataSearchProcedureMonthVo.getMonth(), totalReceived, procedureVoList
+        );
 
         if(extension.equals(Extension.XLS)) {
             return generateXls(dataContentForFileVo);
@@ -44,17 +50,25 @@ public class FileGeneratorServiceImpl implements FileGeneratorService {
         }
     }
 
-    private String generateXls(DataContentForFileVo dataContentForFileVo) {
+    private FileVo generateXls(DataContentForFileVo dataContentForFileVo) {
         byte[] content = xlsCreator.create(dataContentForFileVo);
-        return encodeContent(content);
+        String contentEncoded = encodeContent(content);
+        return fileBuilder(contentEncoded);
     }
 
-    private String generatePdf(DataContentForFileVo dataContentForFileVo) {
+    private FileVo generatePdf(DataContentForFileVo dataContentForFileVo) {
         return null;
     }
 
-    private DataContentForFileVo prepareDataForPrinting(List<ProcedureVo> procedureVoList, BigDecimal totalReceived) {
-        return fileGeneratorMapper.toDataContentForFileVo(totalReceived, procedureVoList);
+    private DataContentForFileVo prepareDataForPrinting(int month, BigDecimal totalReceived, List<ProcedureVo> procedureVoList) {
+        return fileGeneratorMapper.toDataContentForFileVo(month, totalReceived, procedureVoList);
+    }
+
+    private FileVo fileBuilder(String contentEncoded) {
+        return FileVo.builder()
+                .title(String.format("%s_%s", PROCEDURE_REPORT, getLocalDateTimeFormattedNow()))
+                .contentBase64(contentEncoded)
+                .build();
     }
 
 }
