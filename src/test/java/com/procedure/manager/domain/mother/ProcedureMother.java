@@ -1,6 +1,7 @@
 package com.procedure.manager.domain.mother;
 
 import com.procedure.manager.domain.model.ProcedureModel;
+import com.procedure.manager.domain.vo.DataSearchProcedureMonthVo;
 import com.procedure.manager.domain.vo.ProcedureCreationDataVo;
 import com.procedure.manager.domain.vo.ProcedureVo;
 import lombok.AccessLevel;
@@ -68,7 +69,7 @@ public class ProcedureMother {
     }
 
     public static Optional<List<ProcedureModel>> getProcedureModelListOptional() {
-        return Optional.of(List.of(getProcedureModel()));
+        return Optional.of(List.of(getProcedureModel(), getProcedureModel()));
     }
 
     public static Optional<List<ProcedureModel>> getEmptyProcedureModelListOptional() {
@@ -84,7 +85,15 @@ public class ProcedureMother {
     }
 
     public static List<ProcedureVo> getProcedureVoList() {
-        return List.of(getProcedureVo());
+        return List.of(getProcedureVo(), getProcedureVo());
+    }
+
+    public static DataSearchProcedureMonthVo getDataSearchProcedureMonthVo() {
+        DataSearchProcedureMonthVo dataSearchProcedureMonthVo = new DataSearchProcedureMonthVo();
+        dataSearchProcedureMonthVo.setMonth(1);
+        dataSearchProcedureMonthVo.setYear(2023);
+        dataSearchProcedureMonthVo.setUserId(1L);
+        return dataSearchProcedureMonthVo;
     }
 
 }

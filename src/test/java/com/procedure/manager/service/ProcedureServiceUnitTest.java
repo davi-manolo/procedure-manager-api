@@ -97,7 +97,7 @@ class ProcedureServiceUnitTest {
     }
 
     @Test
-    void givenMonthYearUserIdWhenCallGetProcedureListByPeriodThenThrowDatabaseException() {
+    void givenMonthYearUserIdWhenCallGetProcedureListByPeriodThenReturnProcedureList() {
 
         Optional<List<ProcedureModel>> optionalProcedureModel = getProcedureModelListOptional();
         List<ProcedureVo> procedureVoList = getProcedureVoList();
@@ -124,7 +124,7 @@ class ProcedureServiceUnitTest {
     }
 
     @Test
-    void givenMonthYearUserIdWhenCallGetProcedureListByPeriodThenReturnProcedureList() {
+    void givenMonthYearUserIdWhenCallGetProcedureListByPeriodThenThrowDatabaseException() {
 
         Optional<List<ProcedureModel>> optionalProcedureModel = getEmptyProcedureModelListOptional();
 
@@ -237,6 +237,28 @@ class ProcedureServiceUnitTest {
         verify(userService).getUser(userId);
         verify(procedureMapper).voToModel(any());
         verify(procedureRepository).save(procedureModel);
+
+    }
+
+    @Test
+    void givenDataSearchProcedureMonthVoWhenCallCalculateAmountReceivableByMonthThenCalculateValueTotalReceived() {
+
+        Optional<List<ProcedureModel>> optionalProcedureModel = getProcedureModelListOptional();
+        DataSearchProcedureMonthVo dataSearchProcedureMonthVo = getDataSearchProcedureMonthVo();
+        List<ProcedureVo> procedureVoList = getProcedureVoList();
+
+        when(procedureRepository
+                .findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(
+                        any(), any(), any()))
+                .thenReturn(optionalProcedureModel);
+        when(procedureMapper.modelListToVoList(optionalProcedureModel.get())).thenReturn(procedureVoList);
+
+        BigDecimal result = procedureService.calculateAmountReceivableByMonth(dataSearchProcedureMonthVo);
+
+        assertEquals(BigDecimal.valueOf(480.0), result);
+
+        verify(procedureRepository).findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(any(), any(),any());
+        verify(procedureMapper).modelListToVoList(anyList());
 
     }
 
