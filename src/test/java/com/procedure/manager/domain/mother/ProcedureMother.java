@@ -3,6 +3,7 @@ package com.procedure.manager.domain.mother;
 import com.procedure.manager.domain.model.ProcedureModel;
 import com.procedure.manager.domain.vo.DataSearchProcedureMonthVo;
 import com.procedure.manager.domain.vo.ProcedureCreationDataVo;
+import com.procedure.manager.domain.vo.ProcedureForFileVo;
 import com.procedure.manager.domain.vo.ProcedureVo;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -94,6 +95,20 @@ public class ProcedureMother {
         dataSearchProcedureMonthVo.setYear(2023);
         dataSearchProcedureMonthVo.setUserId(1L);
         return dataSearchProcedureMonthVo;
+    }
+
+    public static ProcedureForFileVo getProcedureForFileVo() {
+        ProcedureForFileVo procedureForFileVo = new ProcedureForFileVo();
+        procedureForFileVo.setProcedureDate("05/09/2023");
+        procedureForFileVo.setProcedureCustomer("Fulano Ciclano");
+        procedureForFileVo.setProcedureType("Procedimento 1");
+        procedureForFileVo.setProcedureValue("R$ 700,00");
+        procedureForFileVo.setValueReceived("R$ 250,00");
+        return procedureForFileVo;
+    }
+
+    public static List<ProcedureForFileVo> getProcedureForFileVoList() {
+        return List.of(getProcedureForFileVo(), getProcedureForFileVo());
     }
 
 }
