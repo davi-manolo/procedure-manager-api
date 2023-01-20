@@ -24,7 +24,11 @@ public class ProcedureTypeModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long procedureTypeId;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserModel user;
+
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "percentage", nullable = false)

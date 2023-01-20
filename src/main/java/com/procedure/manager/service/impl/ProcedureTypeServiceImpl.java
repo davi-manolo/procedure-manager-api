@@ -3,9 +3,12 @@ package com.procedure.manager.service.impl;
 import com.procedure.manager.domain.exception.DatabaseException;
 import com.procedure.manager.domain.mapper.ProcedureTypeMapper;
 import com.procedure.manager.domain.model.ProcedureTypeModel;
+import com.procedure.manager.domain.vo.ProcedureTypeCreationDataVo;
 import com.procedure.manager.domain.vo.ProcedureTypeVo;
+import com.procedure.manager.domain.vo.UserVo;
 import com.procedure.manager.repository.ProcedureTypeRepository;
 import com.procedure.manager.service.ProcedureTypeService;
+import com.procedure.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +33,15 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
     @Autowired
     private ProcedureTypeMapper procedureTypeMapper;
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public void registerProcedureType(ProcedureTypeVo procedureTypeVo) {
-        Optional<ProcedureTypeModel> optional = procedureTypeRepository.findByNameIgnoreCase(procedureTypeVo.getName());
+    public void registerProcedureType(ProcedureTypeCreationDataVo procedureTypeCreationDataVo) {
+        Optional<ProcedureTypeModel> optional = procedureTypeRepository.findByUser_userIdAndNameIgnoreCase(
+                procedureTypeCreationDataVo.getUserId(), procedureTypeCreationDataVo.getName()
+        );
+        ProcedureTypeVo procedureTypeVo = new ProcedureTypeVo();
         if(optional.isPresent()) {
             ProcedureTypeModel procedureTypeModel = optional.get();
             if(Boolean.TRUE.equals(procedureTypeModel.getDisabled())) {
@@ -42,6 +51,9 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
                 throw new DatabaseException(CONFLICT, DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS);
             }
         }
+        UserVo userVo = userService.getUser(procedureTypeCreationDataVo.getUserId());
+        populateProcedureType(procedureTypeVo, procedureTypeCreationDataVo);
+        procedureTypeVo.setUser(userVo);
         procedureTypeRepository.save(procedureTypeMapper.voToModel(procedureTypeVo));
     }
 
@@ -55,8 +67,8 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
     }
 
     @Override
-    public List<ProcedureTypeVo> getProcedureTypeList() {
-        Optional<List<ProcedureTypeModel>> optional = procedureTypeRepository.findByDisabledIsFalseOrderByNameAsc();
+    public List<ProcedureTypeVo> getProcedureTypeListByUser(Long userId) {
+        Optional<List<ProcedureTypeModel>> optional = procedureTypeRepository.findByUser_userIdAndDisabledIsFalseOrderByNameAsc(userId);
         if(optional.isEmpty()) {
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_TYPE_LIST_DOES_NOT_EXIST);
         }
@@ -64,10 +76,10 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
     }
 
     @Override
-    public void editProcedureType(ProcedureTypeVo procedureTypeVo) {
-        ProcedureTypeVo procedureTypeVoDatabase = getProcedureType(procedureTypeVo.getProcedureTypeId());
-        procedureTypeVoDatabase.setName(procedureTypeVo.getName());
-        procedureTypeVoDatabase.setPercentage(procedureTypeVo.getPercentage());
+    public void editProcedureType(Long procedureTypeId, ProcedureTypeCreationDataVo procedureTypeCreationDataVo) {
+        ProcedureTypeVo procedureTypeVoDatabase = getProcedureType(procedureTypeId);
+        procedureTypeVoDatabase.setName(procedureTypeCreationDataVo.getName());
+        procedureTypeVoDatabase.setPercentage(procedureTypeCreationDataVo.getPercentage());
         procedureTypeRepository.save(procedureTypeMapper.voToModel(procedureTypeVoDatabase));
     }
 
@@ -76,6 +88,11 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
         ProcedureTypeVo procedureTypeVo = getProcedureType(procedureTypeId);
         procedureTypeVo.setDisabled(TRUE);
         procedureTypeRepository.save(procedureTypeMapper.voToModel(procedureTypeVo));
+    }
+
+    private void populateProcedureType(ProcedureTypeVo procedureTypeVo, ProcedureTypeCreationDataVo procedureTypeCreationDataVo) {
+        procedureTypeVo.setName(procedureTypeCreationDataVo.getName());
+        procedureTypeVo.setPercentage(procedureTypeCreationDataVo.getPercentage());
     }
 
 }

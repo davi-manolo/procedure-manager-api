@@ -1,7 +1,7 @@
 package com.procedure.manager.controller;
 
 import com.procedure.manager.domain.mapper.ProcedureTypeMapper;
-import com.procedure.manager.domain.request.ProcedureTypeRequest;
+import com.procedure.manager.domain.request.DataToCreateProcedureTypeRequest;
 import com.procedure.manager.domain.response.ProcedureTypeResponse;
 import com.procedure.manager.service.ProcedureTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +30,8 @@ public class ProcedureTypeController {
 
     @PostMapping("/procedure-type/register")
     @ResponseStatus(HttpStatus.OK)
-    public void registerProcedureType(@RequestBody ProcedureTypeRequest procedureTypeRequest) {
-        procedureTypeService.registerProcedureType(procedureTypeMapper.requestToVo(procedureTypeRequest));
+    public void registerProcedureType(@RequestBody DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
+        procedureTypeService.registerProcedureType(procedureTypeMapper.requestToVo(dataToCreateProcedureTypeRequest));
     }
 
     @GetMapping("/procedure-type/get")
@@ -42,14 +42,15 @@ public class ProcedureTypeController {
 
     @GetMapping("/procedure-type/get-all")
     @ResponseStatus(HttpStatus.OK)
-    public List<ProcedureTypeResponse> getProcedureTypeList() {
-        return procedureTypeMapper.voListToResponseList(procedureTypeService.getProcedureTypeList());
+    public List<ProcedureTypeResponse> getProcedureTypeListByUser(@RequestParam("userId") Long userId) {
+        return procedureTypeMapper.voListToResponseList(procedureTypeService.getProcedureTypeListByUser(userId));
     }
 
     @PatchMapping("/procedure-type/edit")
     @ResponseStatus(HttpStatus.OK)
-    public void editProcedureType(@RequestBody ProcedureTypeRequest procedureTypeRequest) {
-        procedureTypeService.editProcedureType(procedureTypeMapper.requestToVo(procedureTypeRequest));
+    public void editProcedureType(@RequestParam("procedureTypeId") Long procedureTypeId,
+                                  @RequestBody DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
+        procedureTypeService.editProcedureType(procedureTypeId, procedureTypeMapper.requestToVo(dataToCreateProcedureTypeRequest));
     }
 
     @PatchMapping("/procedure-type/disable")

@@ -1,18 +1,19 @@
 package com.procedure.manager.service;
 
+import com.procedure.manager.domain.vo.ProcedureTypeCreationDataVo;
 import com.procedure.manager.domain.vo.ProcedureTypeVo;
 
 import java.util.List;
 
 public interface ProcedureTypeService {
 
-    void registerProcedureType(ProcedureTypeVo procedureTypeVo);
+    void registerProcedureType(ProcedureTypeCreationDataVo procedureTypeCreationDataVo);
 
     ProcedureTypeVo getProcedureType(Long procedureTypeId);
 
-    List<ProcedureTypeVo> getProcedureTypeList();
+    List<ProcedureTypeVo> getProcedureTypeListByUser(Long userId);
 
-    void editProcedureType(ProcedureTypeVo procedureTypeVo);
+    void editProcedureType(Long procedureTypeId, ProcedureTypeCreationDataVo procedureTypeCreationDataVo);
 
     void disableProcedureType(Long procedureTypeId);
 

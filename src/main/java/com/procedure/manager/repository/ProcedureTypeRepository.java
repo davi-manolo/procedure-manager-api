@@ -8,10 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
+@SuppressWarnings("all")
 public interface ProcedureTypeRepository extends JpaRepository<ProcedureTypeModel, Long> {
 
-    Optional<List<ProcedureTypeModel>> findByDisabledIsFalseOrderByNameAsc();
+    Optional<List<ProcedureTypeModel>> findByUser_userIdAndDisabledIsFalseOrderByNameAsc(Long userId);
 
-    Optional<ProcedureTypeModel> findByNameIgnoreCase(String name);
+    Optional<ProcedureTypeModel> findByUser_userIdAndNameIgnoreCase(Long userId, String name);
 
 }

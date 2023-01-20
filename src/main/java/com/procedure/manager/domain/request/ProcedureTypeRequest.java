@@ -13,6 +13,9 @@ public class ProcedureTypeRequest {
     @JsonProperty("procedureTypeId")
     private Long procedureTypeId;
 
+    @JsonProperty("userId")
+    private Long userId;
+
     @JsonProperty("name")
     private String name;
 

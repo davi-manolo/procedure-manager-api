@@ -1,8 +1,9 @@
 package com.procedure.manager.domain.mapper;
 
 import com.procedure.manager.domain.model.ProcedureTypeModel;
-import com.procedure.manager.domain.request.ProcedureTypeRequest;
+import com.procedure.manager.domain.request.DataToCreateProcedureTypeRequest;
 import com.procedure.manager.domain.response.ProcedureTypeResponse;
+import com.procedure.manager.domain.vo.ProcedureTypeCreationDataVo;
 import com.procedure.manager.domain.vo.ProcedureTypeVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -14,7 +15,7 @@ public interface ProcedureTypeMapper {
 
     ProcedureTypeModel voToModel(ProcedureTypeVo procedureTypeVo);
 
-    ProcedureTypeVo requestToVo(ProcedureTypeRequest procedureTypeRequest);
+    ProcedureTypeCreationDataVo requestToVo(DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest);
 
     ProcedureTypeVo modelToVo(ProcedureTypeModel procedureTypeModel);
 

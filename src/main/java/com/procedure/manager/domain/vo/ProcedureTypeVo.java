@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class ProcedureTypeVo {
 
     private Long procedureTypeId;
+    private UserVo user;
     private String name;
     private Double percentage;
     private Boolean disabled;
