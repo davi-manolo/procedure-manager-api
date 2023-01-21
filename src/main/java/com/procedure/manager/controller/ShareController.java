@@ -7,6 +7,7 @@ import com.procedure.manager.domain.response.FileResponse;
 import com.procedure.manager.service.FileGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+@Validated
 @RestController
 @RequestMapping("/v1")
 @SuppressWarnings("unused")
@@ -28,8 +33,8 @@ public class ShareController {
     @PostMapping("/share")
     @ResponseStatus(HttpStatus.OK)
     public FileResponse share(
-            @RequestParam("extension") Extension extension,
-            @RequestBody DataSearchProcedureMonthRequest dataSearchProcedureMonthRequest
+            @NotNull(message = "{validation.share.extension.notNull}") @RequestParam("extension") Extension extension,
+            @Valid @RequestBody DataSearchProcedureMonthRequest dataSearchProcedureMonthRequest
     ) {
         return shareMapper.fileVoToFileResponse(
                 fileGeneratorService.generateFile(shareMapper.requestToVo(dataSearchProcedureMonthRequest), extension)

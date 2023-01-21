@@ -6,6 +6,7 @@ import com.procedure.manager.domain.response.ProcedureTypeResponse;
 import com.procedure.manager.service.ProcedureTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
+@Validated
 @RestController
 @RequestMapping("/v1")
 @SuppressWarnings("unused")
@@ -30,14 +33,14 @@ public class ProcedureTypeController {
 
     @PostMapping("/procedure-type/register")
     @ResponseStatus(HttpStatus.OK)
-    public void registerProcedureType(@RequestBody DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
+    public void registerProcedureType(@Valid @RequestBody DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
         procedureTypeService.registerProcedureType(procedureTypeMapper.requestToVo(dataToCreateProcedureTypeRequest));
     }
 
     @GetMapping("/procedure-type/get")
     @ResponseStatus(HttpStatus.OK)
-    public ProcedureTypeResponse getProcedureType(@RequestParam Long procedureId) {
-        return procedureTypeMapper.voToResponse(procedureTypeService.getProcedureType(procedureId));
+    public ProcedureTypeResponse getProcedureType(@RequestParam Long procedureTypeId) {
+        return procedureTypeMapper.voToResponse(procedureTypeService.getProcedureType(procedureTypeId));
     }
 
     @GetMapping("/procedure-type/get-all")
@@ -49,7 +52,7 @@ public class ProcedureTypeController {
     @PatchMapping("/procedure-type/edit")
     @ResponseStatus(HttpStatus.OK)
     public void editProcedureType(@RequestParam("procedureTypeId") Long procedureTypeId,
-                                  @RequestBody DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
+                                  @Valid @RequestBody DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
         procedureTypeService.editProcedureType(procedureTypeId, procedureTypeMapper.requestToVo(dataToCreateProcedureTypeRequest));
     }
 
