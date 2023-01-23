@@ -2,6 +2,8 @@ package com.procedure.manager.service.creator;
 
 import com.procedure.manager.domain.exception.WorkbookException;
 import com.procedure.manager.domain.vo.DataContentForFileVo;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -16,7 +18,8 @@ import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Component
-public class XlsCreator {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public abstract class XlsCreator {
 
     private static final String PROCEDURE_NAME = "Procedimentos";
     private static final String TITLE = "Relatório de Procedimentos";
@@ -27,9 +30,9 @@ public class XlsCreator {
     private static final String RECEIVED_VALUE = "R$ Valor Recebido";
 
     private static final String RECEIVED_TOTAL = "Total a Receber:";
-    private int lastRow = 0;
+    private static int lastRow = 0;
 
-    public byte[] create(DataContentForFileVo dataContentForFileVo) {
+    public static byte[] create(DataContentForFileVo dataContentForFileVo) {
         try(Workbook workbook = new HSSFWorkbook()) {
             Sheet sheet = workbook.createSheet(PROCEDURE_NAME);
             lastRow = sheet.getLastRowNum();
@@ -43,7 +46,7 @@ public class XlsCreator {
         }
     }
 
-    private void applyWorksheetSettings(Sheet sheet) {
+    private static void applyWorksheetSettings(Sheet sheet) {
         sheet.setColumnWidth(0, 25 * 256);
         sheet.setColumnWidth(1, 35 * 256);
         sheet.setColumnWidth(2, 25 * 256);
@@ -52,7 +55,7 @@ public class XlsCreator {
         sheet.setDefaultRowHeight((short) 600);
     }
 
-    private void createHeader(Sheet sheet, String monthOfProcedure) {
+    private static void createHeader(Sheet sheet, String monthOfProcedure) {
 
         Row rowTitle = createRow(sheet);
         createCell(rowTitle, 0, format("%s - %s", TITLE, monthOfProcedure),
@@ -68,7 +71,7 @@ public class XlsCreator {
 
     }
 
-    private void createContent(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
+    private static void createContent(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
 
         dataContentForFileVo.getProcedureList().forEach(contentLine -> {
 
@@ -82,7 +85,7 @@ public class XlsCreator {
         });
     }
 
-    private void createFooter(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
+    private static void createFooter(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
 
         Row footerContent = createRow(sheet);
         createCell(footerContent, 3, RECEIVED_TOTAL, titlesStyle(sheet.getWorkbook(), 12));
@@ -90,22 +93,22 @@ public class XlsCreator {
 
     }
 
-    private Row createRow(Sheet sheet) {
+    private static Row createRow(Sheet sheet) {
         return sheet.createRow(++lastRow);
     }
 
-    private Cell createCell(Row row, int cellIndex, String cellContent) {
+    private static Cell createCell(Row row, int cellIndex, String cellContent) {
         Cell cell = row.createCell(cellIndex);
         cell.setCellValue(cellContent);
         return cell;
     }
 
-    private void createCell(Row row, int cellIndex, String cellContent, CellStyle style) {
+    private static void createCell(Row row, int cellIndex, String cellContent, CellStyle style) {
         Cell cell = createCell(row, cellIndex, cellContent);
         cell.setCellStyle(style);
     }
 
-    private byte[] workbookToByteArray(Workbook workbook) {
+    private static byte[] workbookToByteArray(Workbook workbook) {
         try(ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             workbook.write(bos);
             return bos.toByteArray();
