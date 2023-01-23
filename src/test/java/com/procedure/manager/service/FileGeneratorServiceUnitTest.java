@@ -5,7 +5,6 @@ import com.procedure.manager.domain.vo.DataContentForFileVo;
 import com.procedure.manager.domain.vo.DataSearchProcedureMonthVo;
 import com.procedure.manager.domain.vo.FileVo;
 import com.procedure.manager.domain.vo.ProcedureVo;
-import com.procedure.manager.service.creator.XlsCreator;
 import com.procedure.manager.service.impl.FileGeneratorServiceImpl;
 import com.procedure.manager.service.impl.ProcedureServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.procedure.manager.domain.enumeration.Extension;
 
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static com.procedure.manager.domain.mother.FileGeneratorMother.getDataContentForFileVo;
@@ -40,18 +38,13 @@ class FileGeneratorServiceUnitTest {
     @Mock
     private FileGeneratorMapper fileGeneratorMapper;
 
-    @Mock
-    private XlsCreator xlsCreator;
-
     private BigDecimal totalReceived;
     private Extension extension;
     private int month;
-    private byte[] contentEncoded;
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.openMocks(this);
-        this.contentEncoded = "content base64".getBytes(StandardCharsets.UTF_8);
         this.totalReceived = BigDecimal.valueOf(480.0);
         this.extension = Extension.XLS;
         this.month = 1;
@@ -67,7 +60,6 @@ class FileGeneratorServiceUnitTest {
         when(procedureService.getProcedureListByPeriod(dataSearchProcedureMonthVo)).thenReturn(procedureVoList);
         when(procedureService.calculateAmountReceivableByMonth(dataSearchProcedureMonthVo)).thenReturn(totalReceived);
         when(fileGeneratorMapper.toDataContentForFileVo(month, totalReceived, procedureVoList)).thenReturn(dataContentForFileVo);
-        when(xlsCreator.create(dataContentForFileVo)).thenReturn(contentEncoded);
 
         FileVo result = fileGeneratorService.generateFile(dataSearchProcedureMonthVo, extension);
 
@@ -77,7 +69,6 @@ class FileGeneratorServiceUnitTest {
         verify(procedureService).getProcedureListByPeriod(dataSearchProcedureMonthVo);
         verify(procedureService).calculateAmountReceivableByMonth(dataSearchProcedureMonthVo);
         verify(fileGeneratorMapper).toDataContentForFileVo(month, totalReceived, procedureVoList);
-        verify(xlsCreator).create(dataContentForFileVo);
 
     }
 

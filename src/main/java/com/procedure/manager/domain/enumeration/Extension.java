@@ -14,7 +14,7 @@ public enum Extension {
     XLS {
         @Override
         public FileVo getFile(DataContentForFileVo dataContentForFileVo) {
-            byte[] content = XlsCreator.create(dataContentForFileVo);
+            byte[] content = new XlsCreator().create(dataContentForFileVo);
             String contentEncoded = encodeContent(content);
             return fileBuilder(contentEncoded);
         }

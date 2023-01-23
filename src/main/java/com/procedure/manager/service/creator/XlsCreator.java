@@ -2,8 +2,6 @@ package com.procedure.manager.service.creator;
 
 import com.procedure.manager.domain.exception.WorkbookException;
 import com.procedure.manager.domain.vo.DataContentForFileVo;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -18,8 +16,7 @@ import static java.lang.String.format;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Component
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public abstract class XlsCreator {
+public class XlsCreator {
 
     private static final String PROCEDURE_NAME = "Procedimentos";
     private static final String TITLE = "Relatório de Procedimentos";
@@ -30,9 +27,9 @@ public abstract class XlsCreator {
     private static final String RECEIVED_VALUE = "R$ Valor Recebido";
 
     private static final String RECEIVED_TOTAL = "Total a Receber:";
-    private static int lastRow = 0;
+    private int lastRow = 0;
 
-    public static byte[] create(DataContentForFileVo dataContentForFileVo) {
+    public byte[] create(DataContentForFileVo dataContentForFileVo) {
         try(Workbook workbook = new HSSFWorkbook()) {
             Sheet sheet = workbook.createSheet(PROCEDURE_NAME);
             lastRow = sheet.getLastRowNum();
@@ -46,7 +43,7 @@ public abstract class XlsCreator {
         }
     }
 
-    private static void applyWorksheetSettings(Sheet sheet) {
+    private void applyWorksheetSettings(Sheet sheet) {
         sheet.setColumnWidth(0, 25 * 256);
         sheet.setColumnWidth(1, 35 * 256);
         sheet.setColumnWidth(2, 25 * 256);
@@ -55,7 +52,7 @@ public abstract class XlsCreator {
         sheet.setDefaultRowHeight((short) 600);
     }
 
-    private static void createHeader(Sheet sheet, String monthOfProcedure) {
+    private void createHeader(Sheet sheet, String monthOfProcedure) {
 
         Row rowTitle = createRow(sheet);
         createCell(rowTitle, 0, format("%s - %s", TITLE, monthOfProcedure),
@@ -71,7 +68,7 @@ public abstract class XlsCreator {
 
     }
 
-    private static void createContent(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
+    private void createContent(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
 
         dataContentForFileVo.getProcedureList().forEach(contentLine -> {
 
@@ -85,7 +82,7 @@ public abstract class XlsCreator {
         });
     }
 
-    private static void createFooter(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
+    private void createFooter(Sheet sheet, DataContentForFileVo dataContentForFileVo) {
 
         Row footerContent = createRow(sheet);
         createCell(footerContent, 3, RECEIVED_TOTAL, titlesStyle(sheet.getWorkbook(), 12));
@@ -93,22 +90,22 @@ public abstract class XlsCreator {
 
     }
 
-    private static Row createRow(Sheet sheet) {
+    private Row createRow(Sheet sheet) {
         return sheet.createRow(++lastRow);
     }
 
-    private static Cell createCell(Row row, int cellIndex, String cellContent) {
+    private Cell createCell(Row row, int cellIndex, String cellContent) {
         Cell cell = row.createCell(cellIndex);
         cell.setCellValue(cellContent);
         return cell;
     }
 
-    private static void createCell(Row row, int cellIndex, String cellContent, CellStyle style) {
+    private void createCell(Row row, int cellIndex, String cellContent, CellStyle style) {
         Cell cell = createCell(row, cellIndex, cellContent);
         cell.setCellStyle(style);
     }
 
-    private static byte[] workbookToByteArray(Workbook workbook) {
+    private byte[] workbookToByteArray(Workbook workbook) {
         try(ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             workbook.write(bos);
             return bos.toByteArray();
@@ -117,7 +114,7 @@ public abstract class XlsCreator {
         }
     }
 
-    private static CellStyle titlesStyle(Workbook workbook, int fontSize) {
+    private CellStyle titlesStyle(Workbook workbook, int fontSize) {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
         cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
@@ -135,7 +132,7 @@ public abstract class XlsCreator {
         return cellStyle;
     }
 
-    private static CellStyle contentStyle(Workbook workbook) {
+    private CellStyle contentStyle(Workbook workbook) {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
