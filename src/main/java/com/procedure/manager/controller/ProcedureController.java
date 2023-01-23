@@ -45,7 +45,8 @@ public class ProcedureController {
     public void registerProcedure(
             @Valid @RequestBody
             @ApiParam(value = "Objeto de entrada para cadastrar novo procedimento.")
-            DataToCreateProcedureRequest dataToCreateProcedureRequest) {
+            DataToCreateProcedureRequest dataToCreateProcedureRequest
+    ) {
         procedureService.registerProcedure(procedureMapper.requestToVo(dataToCreateProcedureRequest));
     }
 

@@ -38,7 +38,8 @@ public class UserController {
     public void registerUser(
             @Valid @RequestBody
             @ApiParam(value = "Objeto para registrar um novo usuário.")
-            UserRequest userRequest) {
+            UserRequest userRequest
+    ) {
         userService.registerUser(userMapper.requestToVo(userRequest));
     }
 
@@ -49,7 +50,8 @@ public class UserController {
             @NotBlank(message = "{validation.email.notBlank}")
             @Email(message = "{validation.email.notValid}")
             @ApiParam(value = "Email para buscar as informações do usuário.")
-            @RequestParam("userMail") String userMail) {
+            @RequestParam("userMail") String userMail
+    ) {
         return userMapper.voToResponse(userService.getUser(userMail));
     }
 

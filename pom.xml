@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>com.procedure.manager</groupId>
 	<artifactId>proceduremanager</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Procedure Manager</name>
+	<version>1.0.0</version>
+	<name>Procedure Manager API</name>
 	<description>Gerenciador de procedimentos com ganho em comissão.</description>
 	<properties>
 		<java.version>11</java.version>

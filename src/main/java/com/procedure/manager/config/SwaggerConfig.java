@@ -14,6 +14,7 @@ import java.util.Collections;
 import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 
 @Configuration
+@SuppressWarnings("unused")
 public class SwaggerConfig {
 
     @Value("${info.app.name}")

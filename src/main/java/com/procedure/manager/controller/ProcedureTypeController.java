@@ -43,7 +43,8 @@ public class ProcedureTypeController {
     public void registerProcedureType(
             @Valid @RequestBody
             @ApiParam(value = "Objeto para registrar um novo tipo de procedimento.")
-            DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest) {
+            DataToCreateProcedureTypeRequest dataToCreateProcedureTypeRequest
+    ) {
         procedureTypeService.registerProcedureType(procedureTypeMapper.requestToVo(dataToCreateProcedureTypeRequest));
     }
 
@@ -54,7 +55,8 @@ public class ProcedureTypeController {
     public ProcedureTypeResponse getProcedureType(
             @RequestParam
             @ApiParam(value = "ID do tipo de procedimento para buscar-lo.")
-            Long procedureTypeId) {
+            Long procedureTypeId
+    ) {
         return procedureTypeMapper.voToResponse(procedureTypeService.getProcedureType(procedureTypeId));
     }
 
@@ -65,7 +67,8 @@ public class ProcedureTypeController {
     public List<ProcedureTypeResponse> getProcedureTypeListByUser(
             @RequestParam("userId")
             @ApiParam(value = "ID do usuário (profissional) para buscar todos os tipo de procedimentos.")
-            Long userId) {
+            Long userId
+    ) {
         return procedureTypeMapper.voListToResponseList(procedureTypeService.getProcedureTypeListByUser(userId));
     }
 
@@ -94,7 +97,8 @@ public class ProcedureTypeController {
     public void disableProcedureType(
             @RequestParam
             @ApiParam(value = "ID do tipo de procedimento para desabilitar.")
-            Long procedureTypeId) {
+            Long procedureTypeId
+    ) {
         procedureTypeService.disableProcedureType(procedureTypeId);
     }
 
