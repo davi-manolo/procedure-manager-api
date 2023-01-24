@@ -7,18 +7,22 @@ import com.procedure.manager.domain.vo.UserVo;
 import com.procedure.manager.repository.UserRepository;
 import com.procedure.manager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_USER_ALREADY_EXISTS;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_USER_DOES_NOT_EXIST;
+import static com.procedure.manager.util.DataEncoderUtils.encodePassword;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 @SuppressWarnings("unused")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -32,6 +36,7 @@ public class UserServiceImpl implements UserService {
         if(optional.isPresent()) {
             throw new DatabaseException(CONFLICT, DATABASE_USER_ALREADY_EXISTS);
         }
+        userVo.setPassword(encodePassword(userVo.getPassword()));
         userRepository.save(userMapper.voToModel(userVo));
     }
 
@@ -51,6 +56,11 @@ public class UserServiceImpl implements UserService {
             throw new DatabaseException(NOT_FOUND, DATABASE_USER_DOES_NOT_EXIST);
         }
         return userMapper.modelToVo(optional.get());
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        return userMapper.userVoToUserDetails(getUser(email));
     }
 
 }
