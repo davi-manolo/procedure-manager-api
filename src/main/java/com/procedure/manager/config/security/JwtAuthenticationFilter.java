@@ -3,6 +3,7 @@ package com.procedure.manager.config.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.procedure.manager.domain.exception.DefaultException;
 import com.procedure.manager.domain.vo.LoginVo;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +19,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static com.procedure.manager.domain.enumeration.ExceptionMessage.ERROR_ON_LOGIN;
 import static com.procedure.manager.util.SecurityConstantsUtils.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
@@ -43,9 +46,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     )
             );
 
-            //Erro ao autenticar usuario
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
+            throw new DefaultException(BAD_REQUEST, ERROR_ON_LOGIN);
         }
     }
 

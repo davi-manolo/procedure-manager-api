@@ -16,7 +16,8 @@ public enum ExceptionMessage {
     MISSING_PARAMETER_REQUEST("missing.parameter.request"),
     INVALID_PARAMETER_REQUEST("invalid.parameter.request"),
     WORKBOOK_IO_ERROR("workbook.io.error"),
-    WORKBOOK_CONVERT_TO_ARRAY_ERROR("workbook.array.error");
+    WORKBOOK_CONVERT_TO_ARRAY_ERROR("workbook.array.error"),
+    ERROR_ON_LOGIN("error.process.login");
 
     private final String messageKey;
 
