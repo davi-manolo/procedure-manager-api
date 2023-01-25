@@ -3,6 +3,7 @@ package com.procedure.manager.config.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.procedure.manager.domain.vo.LoginVo;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -33,15 +34,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
             HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
 
-            User creds = new ObjectMapper().readValue(request.getInputStream(), User.class);
+            LoginVo login = new ObjectMapper().readValue(request.getInputStream(), LoginVo.class);
             return  authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
-                            creds.getUsername(),
-                            creds.getPassword(),
+                            login.getEmail(),
+                            login.getPassword(),
                             new ArrayList<>()
                     )
             );
 
+            //Erro ao autenticar usuario
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -55,12 +57,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = JWT.create()
                 .withSubject(((User) authentication.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(SECRET.getBytes()));
+                .sign(Algorithm.HMAC512(SECRET_KEY));
 
-        String body = ((User) authentication.getPrincipal()).getUsername() + " " + token;
-
-        response.getWriter().write(body);
+        response.getWriter().write(token);
         response.getWriter().flush();
 
     }
+
 }
