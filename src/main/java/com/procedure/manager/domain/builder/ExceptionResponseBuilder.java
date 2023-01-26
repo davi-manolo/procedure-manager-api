@@ -1,5 +1,6 @@
 package com.procedure.manager.domain.builder;
 
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.procedure.manager.domain.enumeration.ExceptionMessage;
 import com.procedure.manager.domain.exception.DatabaseException;
 import com.procedure.manager.domain.exception.response.ExceptionResponse;
@@ -54,6 +55,13 @@ public class ExceptionResponseBuilder {
                                 .map(ConstraintViolation::getMessage)
                                 .collect(Collectors.joining()))
                 )
+                .build();
+    }
+
+    public ExceptionResponse getJwtVerificationExceptionResponse(JWTVerificationException exception) {
+        return ExceptionResponse.builder()
+                .timestamp(LocalDateTime.now())
+                .message(messageUtils.getMessage(ExceptionMessage.NOT_AUTHORIZED, exception.getLocalizedMessage()))
                 .build();
     }
 

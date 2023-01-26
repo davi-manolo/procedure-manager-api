@@ -1,5 +1,7 @@
 package com.procedure.manager.domain.exception.handler;
 
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.procedure.manager.domain.builder.ExceptionResponseBuilder;
 import com.procedure.manager.domain.exception.DatabaseException;
 import com.procedure.manager.domain.exception.response.ExceptionResponse;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.validation.ConstraintViolationException;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 
 @Slf4j
@@ -52,6 +55,13 @@ public class GlobalExceptionHandler {
         ExceptionResponse exceptionResponse = responseBuilder.getValidationParameterException(exception);
         log.error(exceptionResponse.getMessage(), exception);
         return ResponseEntityUtils.defaultResponse(BAD_REQUEST, exceptionResponse);
+    }
+
+    @ExceptionHandler({JWTVerificationException.class, JWTDecodeException.class})
+    public ResponseEntity<ExceptionResponse> handleValidationJwtParameter(JWTVerificationException exception) {
+        ExceptionResponse exceptionResponse = responseBuilder.getJwtVerificationExceptionResponse(exception);
+        log.error(exceptionResponse.getMessage(), exception);
+        return ResponseEntityUtils.defaultResponse(FORBIDDEN, exceptionResponse);
     }
 
 }

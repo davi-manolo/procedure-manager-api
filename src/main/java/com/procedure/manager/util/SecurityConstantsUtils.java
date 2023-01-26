@@ -8,8 +8,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SecurityConstantsUtils {
 
-    //@Value("${security.secret_key}")
-    public static final String SECRET_KEY = "123abc";
+    public static final String SECRET_KEY = "5e7a722c-3177-4b97-8fb0-deb55f59a31e";
     public static final long EXPIRATION_TIME = 900000L;
     public static final String TOKEN_PREFIX = "Bearer ";
     public static final String HEADER_STRING = "Authorization";

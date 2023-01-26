@@ -20,6 +20,7 @@ import static com.procedure.manager.util.SecurityConstantsUtils.URL_LOGIN;
 
 @Configuration
 @EnableWebSecurity
+@SuppressWarnings("unused")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, URL_LOGIN).permitAll()
                 .antMatchers(HttpMethod.POST, "/v1/user/register").permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().authenticated().and().requiresChannel()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))
