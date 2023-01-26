@@ -1,13 +1,13 @@
 # <img src="icon.png" alt="drawing" width="28"/> Gerenciador de Procedimentos API
 
-### 1.0 - Apresentação
+### 1.0 - Apresentação :ledger:
 O Gerenciador de Procedimento é um microservice (Web Service) no estilo RESTful API. Onde foi desenvolvido para ser consumido por
 diferentes clients possíveis através de requisições REST.
 
 Seu funcionamento se dá em ganhos de comissão em porcentagem encima de um determinado procedimento realizado, de acordo
 com o tipo de procedimento.
 
-### 2.0 - Todas as tecnologias utilizadas no projeto
+### 2.0 - Todas as tecnologias utilizadas no projeto :package:
 :white_check_mark: Spring Boot Web para microservice.<br/>
 :white_check_mark:Spring Boot MVC para Controller, View e Model.<br/>
 :white_check_mark:Spring Boot JPA com PostgreSQL com criação automática.<br/>
