@@ -9,6 +9,7 @@ import com.procedure.manager.domain.vo.UserVo;
 import com.procedure.manager.repository.ProcedureTypeRepository;
 import com.procedure.manager.service.ProcedureTypeService;
 import com.procedure.manager.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import static java.lang.Boolean.TRUE;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@Slf4j
 @Service
 @SuppressWarnings("unused")
 public class ProcedureTypeServiceImpl implements ProcedureTypeService {
@@ -48,6 +50,7 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
                 procedureTypeVo.setProcedureTypeId(procedureTypeModel.getProcedureTypeId());
                 procedureTypeVo.setDisabled(FALSE);
             } else {
+                log.error("Tipo de procedimento já existe com o nome {}.", procedureTypeModel.getName());
                 throw new DatabaseException(CONFLICT, DATABASE_PROCEDURE_TYPE_ALREADY_EXISTS);
             }
         }
@@ -55,14 +58,17 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
         populateProcedureType(procedureTypeVo, procedureTypeCreationDataVo);
         procedureTypeVo.setUser(userVo);
         procedureTypeRepository.save(procedureTypeMapper.voToModel(procedureTypeVo));
+        log.info("Tipo de procedimento foi registrado com o nome {}.", procedureTypeVo.getName());
     }
 
     @Override
     public ProcedureTypeVo getProcedureType(Long procedureTypeId) {
         Optional<ProcedureTypeModel> optional = procedureTypeRepository.findById(procedureTypeId);
         if(optional.isEmpty()) {
+            log.error("Tipo de procedimento não existe com ID {}.", procedureTypeId);
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_TYPE_DOES_NOT_EXIST);
         }
+        log.info("Tipo de procedimento retornado do banco de dados: {}.", optional.get());
         return procedureTypeMapper.modelToVo(optional.get());
     }
 
@@ -70,8 +76,10 @@ public class ProcedureTypeServiceImpl implements ProcedureTypeService {
     public List<ProcedureTypeVo> getProcedureTypeListByUser(Long userId) {
         Optional<List<ProcedureTypeModel>> optional = procedureTypeRepository.findByUser_userIdAndDisabledIsFalseOrderByNameAsc(userId);
         if(optional.isEmpty()) {
+            log.error("Não houve retorno de tipos de procedimentos para o usuário com ID {}.", userId);
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_TYPE_LIST_DOES_NOT_EXIST);
         }
+        log.info("Lista de tipos de procedimentos retornados para o usuário com ID {}", userId);
         return procedureTypeMapper.modelListToVoList(optional.get());
     }
 

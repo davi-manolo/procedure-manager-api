@@ -5,12 +5,14 @@ import com.procedure.manager.domain.mapper.FileGeneratorMapper;
 import com.procedure.manager.domain.vo.*;
 import com.procedure.manager.service.FileGeneratorService;
 import com.procedure.manager.service.ProcedureService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Slf4j
 @Service
 @SuppressWarnings("unused")
 public class FileGeneratorServiceImpl implements FileGeneratorService {
@@ -30,6 +32,8 @@ public class FileGeneratorServiceImpl implements FileGeneratorService {
         DataContentForFileVo dataContentForFileVo = prepareDataForPrinting(
                 dataSearchProcedureMonthVo.getMonth(), totalReceived, procedureVoList
         );
+
+        log.info("Arquivo gerado com a extensão {} foi retornado.", extension.name());
 
         return extension.getFile(dataContentForFileVo);
 

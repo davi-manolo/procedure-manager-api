@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.procedure.manager.domain.exception.DefaultException;
 import com.procedure.manager.domain.vo.LoginVo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import static com.procedure.manager.domain.enumeration.ExceptionMessage.ERROR_ON
 import static com.procedure.manager.util.SecurityConstantsUtils.*;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
+@Slf4j
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
@@ -60,6 +62,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withSubject(((User) authentication.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET_KEY.getBytes()));
+
+        log.info("Login realizado com usuário {}.", ((User) authentication.getPrincipal()).getUsername());
 
         response.getWriter().write(token);
         response.getWriter().flush();

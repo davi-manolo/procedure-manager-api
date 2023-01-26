@@ -8,6 +8,7 @@ import com.procedure.manager.repository.ProcedureRepository;
 import com.procedure.manager.service.ProcedureService;
 import com.procedure.manager.service.ProcedureTypeService;
 import com.procedure.manager.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import static com.procedure.manager.util.DateUtils.getInitialLocalDateTime;
 import static java.lang.Boolean.TRUE;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+@Slf4j
 @Service
 @SuppressWarnings("unused")
 public class ProcedureServiceImpl implements ProcedureService {
@@ -58,8 +60,10 @@ public class ProcedureServiceImpl implements ProcedureService {
     public ProcedureVo getProcedure(Long procedureId) {
         Optional<ProcedureModel> optional = procedureRepository.findById(procedureId);
         if(optional.isEmpty()) {
+            log.error("Não houve retorno de procedimento com o ID {}.", procedureId);
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_DOES_NOT_EXIST);
         }
+        log.info("Procedimento retornado: {}.", optional.get());
         return procedureMapper.modelToVo(optional.get());
     }
 
@@ -74,6 +78,7 @@ public class ProcedureServiceImpl implements ProcedureService {
                         startDate, endDate, dataSearchProcedureMonthVo.getUserId()
                 );
         if(optional.isEmpty()) {
+            log.info("Não houve retorno de procedimentos neste período com os dados: {}.", dataSearchProcedureMonthVo);
             throw new DatabaseException(NOT_FOUND, DATABASE_PROCEDURE_LIST_DOES_NOT_EXIST);
         }
         return procedureMapper.modelListToVoList(optional.get());
