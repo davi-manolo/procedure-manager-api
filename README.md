@@ -12,6 +12,7 @@ com o tipo de procedimento.
 :white_check_mark:Spring Boot MVC para Controller, View e Model.<br/>
 :white_check_mark:Spring Boot JPA com PostgreSQL com criação automática.<br/>
 :white_check_mark:Spring Boot Security para requisições HTTPS.<br/>
+:white_check_mark:Spring Boot Validation para validar objetos de requisição.<br/>
 :white_check_mark:Autenticação com JWT.<br/>
 :white_check_mark:Criptografia com Auth0 e BCrypt.<br/>
 :white_check_mark:Secret Key hospedado com AWS.<br/>
