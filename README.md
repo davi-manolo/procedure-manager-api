@@ -40,3 +40,19 @@ Após levantar o serviço, basta acessar a documentação em seu navegador:
 ```
 http://localhost:8080/swagger-ui/#/
 ```
+
+### 4.0 - Subir o projeto :hammer_and_wrench:
+É importante que você tenha um banco de dados rodando em sua máquina local, recomendo que seja configurado o banco de 
+dados PostgreSQL (inicialmente implementado neste projeto).<br/>
+Após o banco de dados estar rodando crie o um banco chamado `procedure_manager_db`.
+
+Com o projeto clonado em sua máquina, dentro da sua IDE crie as variáveis de ambiente conforme foi criado o seu banco de dados.
+| Nome Variável          | Valor Variável                                        |
+|------------------------|-------------------------------------------------------|
+| DATASOURCE_URL         | jdbc:postgresql://localhost:5432/procedure_manager_db |
+| DATASOURCE_USERNAME    | nome_usuario                                          |
+| DATASOURCE_PASSWORD    | senha_usuario                                         |
+| spring.profiles.active | dev                                                   |
+>
+> OBS: É importante que rode a aplicação em modo de desenvolvimento (profile de "dev").
+> 
