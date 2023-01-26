@@ -26,13 +26,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, URL_LOGIN).permitAll()
                 .antMatchers(HttpMethod.POST, "/v1/user/register").permitAll()
-                .anyRequest().authenticated().and().requiresChannel()
+                .anyRequest().authenticated()
+                .and().exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
+                .and().requiresChannel()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager()))

@@ -17,8 +17,7 @@ public enum ExceptionMessage {
     INVALID_PARAMETER_REQUEST("invalid.parameter.request"),
     WORKBOOK_IO_ERROR("workbook.io.error"),
     WORKBOOK_CONVERT_TO_ARRAY_ERROR("workbook.array.error"),
-    ERROR_ON_LOGIN("error.process.login"),
-    NOT_AUTHORIZED("not.authorized");
+    ERROR_ON_LOGIN("error.process.login");
 
     private final String messageKey;
 

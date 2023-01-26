@@ -1,6 +1,5 @@
 package com.procedure.manager.domain.builder;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.procedure.manager.domain.enumeration.ExceptionMessage;
 import com.procedure.manager.domain.exception.DatabaseException;
 import com.procedure.manager.domain.exception.response.ExceptionResponse;
@@ -57,33 +56,5 @@ public class ExceptionResponseBuilder {
                 )
                 .build();
     }
-
-    public ExceptionResponse getJwtVerificationExceptionResponse(JWTVerificationException exception) {
-        return ExceptionResponse.builder()
-                .timestamp(LocalDateTime.now())
-                .message(messageUtils.getMessage(ExceptionMessage.NOT_AUTHORIZED, exception.getLocalizedMessage()))
-                .build();
-    }
-
-//    public ExceptionResponse getInternalErrorResponse() {
-//        return ExceptionResponse.builder()
-//                .timestamp(LocalDateTime.now())
-//                .message(messageUtils.getMessage(ExceptionMessage.INTERNAL_SERVER_ERROR))
-//                .build();
-//    }
-//
-//    public ExceptionResponse getBadRequestResponse(String message) {
-//        return ExceptionResponse.builder()
-//                .timestamp(LocalDateTime.now())
-//                .message(messageUtils.getMessage(ExceptionMessage.BAD_REQUEST, message))
-//                .build();
-//    }
-//
-//    public ExceptionResponse getCustomMessageResponse(String message) {
-//        return ExceptionResponse.builder()
-//                .timestamp(LocalDateTime.now())
-//                .message(message)
-//                .build();
-//    }
 
 }
