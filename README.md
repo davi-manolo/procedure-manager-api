@@ -29,3 +29,14 @@ com o tipo de procedimento.
 :white_check_mark:Logs de negócio através da biblioteca SLF4J.<br/>
 :white_check_mark:Geração de arquivos com Base64.<br/>
 :white_check_mark:Collection de requisições do Insomnia completa dentro do projeto.<br/>
+
+### 3.0 - Documentação do Swagger :clipboard:
+Para acessar a documentação da API, é necessário subir a aplicação com o profile de desenvolvimento.
+Basta definir nas variáveis de ambiente um argumento na JVM:
+```
+spring.profiles.active=dev
+```
+Após levantar o serviço, basta acessar a documentação em seu navegador:
+```
+http://localhost:8080/swagger-ui/#/
+```
