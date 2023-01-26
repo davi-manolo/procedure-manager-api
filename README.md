@@ -49,10 +49,16 @@ Após o banco de dados estar rodando crie o um banco chamado `procedure_manager_
 Com o projeto clonado em sua máquina, dentro da sua IDE crie as variáveis de ambiente conforme foi criado o seu banco de dados.
 | Nome Variável          | Valor Variável                                        |
 |------------------------|-------------------------------------------------------|
-| DATASOURCE_URL         | jdbc:postgresql://localhost:5432/procedure_manager_db |
-| DATASOURCE_USERNAME    | nome_usuario                                          |
-| DATASOURCE_PASSWORD    | senha_usuario                                         |
-| spring.profiles.active | dev                                                   |
+| DATASOURCE_URL         | *jdbc:postgresql://localhost:5432/procedure_manager_db* |
+| DATASOURCE_USERNAME    | *nome_usuario*                                          |
+| DATASOURCE_PASSWORD    | *senha_usuario*                                         |
+| spring.profiles.active | *dev*                                                   |
 >
 > OBS: É importante que rode a aplicação em modo de desenvolvimento (profile de "dev").
 > 
+
+### 5.0 - Documentações do projeto :card_index_dividers:
+Caso queira a _Collection_ de requisições pronta para ser utilizada, está presente na pasta _raiz_ dentro da pasta _**externalfiles**_.<br/>
+O script de criação das tabelas do banco de dados está presente em _**src/main/resources/db/migration**_.
+
+_**Desenvolvido com :hearts: por Davi Manolo.**_
