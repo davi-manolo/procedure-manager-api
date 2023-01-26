@@ -1,4 +1,4 @@
-# Gerenciador de Procedimentos API
+# <img src="icon.png" alt="drawing" width="40"/> Gerenciador de Procedimentos API
 
 ### 1.0 - Apresentação
 O Gerenciador de Procedimento é um microservice (Web Service) no estilo RESTful API. Onde foi desenvolvido para ser consumido por
