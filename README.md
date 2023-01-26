@@ -25,7 +25,7 @@ com o tipo de procedimento.
 :white_check_mark:Arquitetura Maven com ambiente de produção e desenvolvimento (application.yml e application-dev.yml).<br/>
 :white_check_mark:Resources Bundle para região em pt_BR e en_US.<br/>
 :white_check_mark:Exceções de forma global com Global Handler.<br/>
-:white_check_mark:FlyWay configurado no porjeto para geração de scripts de banco de dados.<br/>
+:white_check_mark:FlyWay Migration configurado no projeto para versionamento de scripts de banco de dados.<br/>
 :white_check_mark:Logs de negócio através da biblioteca SLF4J.<br/>
 :white_check_mark:Geração de arquivos com Base64.<br/>
 :white_check_mark:Collection de requisições do Insomnia completa dentro do projeto.<br/>
