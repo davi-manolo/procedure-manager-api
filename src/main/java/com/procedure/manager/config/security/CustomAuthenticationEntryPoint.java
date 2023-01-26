@@ -16,8 +16,8 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
-        setResponseError(response, HttpServletResponse.SC_UNAUTHORIZED,
-                String.format("Authentication failed, requires valid username (verify email and password): %s", exception.getMessage()
+        setResponseError(response, HttpServletResponse.SC_FORBIDDEN,
+                String.format("Authentication failed, requires valid username (verify email, password or token): %s", exception.getMessage()
                 ));
     }
 
