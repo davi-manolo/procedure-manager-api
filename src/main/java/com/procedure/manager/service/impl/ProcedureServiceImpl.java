@@ -52,6 +52,8 @@ public class ProcedureServiceImpl implements ProcedureService {
         procedureVo.setUser(userVo);
         procedureVo.setProcedureType(procedureTypeVo);
 
+        log.info("Procedimento criado com os dados {}.", procedureCreationDataVo);
+
         procedureRepository.save(procedureMapper.voToModel(procedureVo));
 
     }
