@@ -4,7 +4,10 @@ import com.procedure.manager.domain.model.UserModel;
 import com.procedure.manager.domain.vo.UserVo;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -36,6 +39,10 @@ public class UserMother {
 
     public static Optional<UserModel> getEmptyUserModelOptional() {
         return Optional.empty();
+    }
+
+    public static UserDetails getUserDetails() {
+        return new User("fulano.ciclano@email.com", "123abc", new ArrayList<>());
     }
 
 }

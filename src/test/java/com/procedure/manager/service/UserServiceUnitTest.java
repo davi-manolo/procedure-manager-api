@@ -13,15 +13,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_USER_ALREADY_EXISTS;
 import static com.procedure.manager.domain.enumeration.ExceptionMessage.DATABASE_USER_DOES_NOT_EXIST;
-import static com.procedure.manager.domain.mother.UserMother.getEmptyUserModelOptional;
-import static com.procedure.manager.domain.mother.UserMother.getUserModel;
-import static com.procedure.manager.domain.mother.UserMother.getUserModelOptional;
-import static com.procedure.manager.domain.mother.UserMother.getUserVo;
+import static com.procedure.manager.domain.mother.UserMother.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
@@ -157,6 +156,28 @@ class UserServiceUnitTest {
         assertEquals(databaseException.getMessage(), DATABASE_USER_DOES_NOT_EXIST.getMessageKey());
 
         verify(userRepository).findById(any());
+
+    }
+
+    @Test
+    void givenEmailWhenCallLoadUserByUsernameThenReturnUserDetails() {
+
+        Optional<UserModel> optionalUserModel = getUserModelOptional();
+        UserDetails userDetails = getUserDetails();
+        UserVo userVo = getUserVo();
+
+        when(userRepository.findByEmailIgnoreCase(email)).thenReturn(optionalUserModel);
+        when(userMapper.modelToVo(optionalUserModel.get())).thenReturn(userVo);
+        when(userMapper.userVoToUser(userVo)).thenReturn((User) userDetails);
+
+        UserDetails result = userService.loadUserByUsername(email);
+
+        assertEquals(result.getUsername(), userVo.getEmail());
+        assertEquals(result.getPassword(), userVo.getPassword());
+
+        verify(userRepository).findByEmailIgnoreCase(any());
+        verify(userMapper).modelToVo(any());
+        verify(userMapper).userVoToUser(any());
 
     }
 

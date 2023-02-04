@@ -3,7 +3,6 @@ package com.procedure.manager.domain.mapper;
 import com.procedure.manager.domain.model.UserModel;
 import com.procedure.manager.domain.request.UserRequest;
 import com.procedure.manager.domain.response.UserResponse;
-import com.procedure.manager.domain.vo.LoginVo;
 import com.procedure.manager.domain.vo.UserVo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
