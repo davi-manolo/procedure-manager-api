@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+table, th, td {
+    height: 30px;
+    border: 1px solid;
+    padding: 5px;
+    text-align: left;
+  }
+
+table {
+    border-collapse: collapse;
+}
+
+.dateColumn {
+    width: 210px;
+}
+
+.customerColumn {
+    width: 320px;
+}
+
+.procedureColumn {
+    width: 320px;
+}

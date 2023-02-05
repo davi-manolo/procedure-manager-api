@@ -2,6 +2,7 @@ package com.procedure.manager.domain.enumeration;
 
 import com.procedure.manager.domain.vo.DataContentForFileVo;
 import com.procedure.manager.domain.vo.FileVo;
+import com.procedure.manager.service.creator.PdfCreator;
 import com.procedure.manager.service.creator.XlsCreator;
 import lombok.Getter;
 
@@ -23,7 +24,9 @@ public enum Extension {
     PDF {
         @Override
         public FileVo getFile(DataContentForFileVo dataContentForFileVo) {
-            return fileBuilder(null);
+            byte[] content = new PdfCreator().create(dataContentForFileVo);
+            String contentEncoded = encodeContent(content);
+            return fileBuilder(contentEncoded);
         }
     };
 
