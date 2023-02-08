@@ -1,10 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="generator"
+          content="HTML Tidy for Java (vers. 2009-12-01), see jtidy.sourceforge.net" /><style
+        type="text/css">
+/*<![CDATA[*/
+        @import url('Inter-Regular.ttf');
+
+        @page {
+            size: A3;
+        }
 
         * {
+            page-break-inside: always;
             font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 18px;
         }
 
         table, th, td {
@@ -16,69 +35,737 @@
 
         table {
             border-collapse: collapse;
+            width: 100%;
         }
 
         .dateColumn {
-            width: 210px;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
         }
 
         .customerColumn {
-            width: 320px;
+            width: 180px;
+            min-width: 180px;
         }
 
         .procedureColumn {
-            width: 320px;
+            width: 180px;
+            min-width: 180px;
         }
-    </style>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Relatório de procedimentos</title>
-    </head>
-    <body>
-        <h1>Relatório de Procedimentos - Janeiro</h1>
-        <table>
-            <tr>
-                <th class="dateColumn">Data do Procedimento</th>
-                <th class="customerColumn">Cliente</th>
-                <th class="procedureColumn">Tipo de Procedimento</th>
-                <th>R$ Valor do Procedimento</th>
-                <th>R$ Valor Recebido</th>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-        </table>
-    </body>
+
+        .procedureValueColumn {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+
+        .receivedColumn {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+    /*]]>*/
+</style>
+    <title></title>
+</head>
+<body>
+<h1>Relatório de Procedimentos - Fevereiro</h1>
+<table>
+    <tr>
+        <th class="dateColumn">Data do Procedimento</th>
+        <th class="customerColumn">Cliente</th>
+        <th class="procedureColumn">Tipo de Procedimento</th>
+        <th class="procedureValueColumn">R$ Valor do Procedimento</th>
+        <th class="receivedColumn">R$ Valor Recebido</th>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+    <tr>
+        <td>06/01/2023</td>
+        <td>Cliente 4</td>
+        <td>Procedimento 2</td>
+        <td>R$ 285,20</td>
+        <td>R$ 85,56</td>
+    </tr>
+</table>
+<h2>Total a receber: R$ 8.384,88</h2>
+</body>
 </html>

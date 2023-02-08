@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+    <style type="text/css">
+        @import url('Inter-Regular.ttf');
+
+        @page {
+            size: A3;
+        }
 
         * {
+            page-break-inside: always;
             font-family: 'Inter', sans-serif;
+            font-size: 14px;
+        }
+
+        h1 {
+            font-size: 28px;
+        }
+
+        h2 {
+            font-size: 18px;
         }
 
         table, th, td {
@@ -16,69 +30,55 @@
 
         table {
             border-collapse: collapse;
+            width: 100%;
         }
 
         .dateColumn {
-            width: 210px;
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
         }
 
         .customerColumn {
-            width: 320px;
+            width: 180px;
+            min-width: 180px;
         }
 
         .procedureColumn {
-            width: 320px;
+            width: 180px;
+            min-width: 180px;
+        }
+
+        .procedureValueColumn {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
+        }
+
+        .receivedColumn {
+            width: 80px;
+            min-width: 80px;
+            max-width: 80px;
         }
     </style>
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Relatório de procedimentos</title>
-    </head>
     <body>
-        <h1>Relatório de Procedimentos - Janeiro</h1>
+        <h1>Relatório de Procedimentos - [[${data.month}]]</h1>
         <table>
             <tr>
                 <th class="dateColumn">Data do Procedimento</th>
                 <th class="customerColumn">Cliente</th>
                 <th class="procedureColumn">Tipo de Procedimento</th>
-                <th>R$ Valor do Procedimento</th>
-                <th>R$ Valor Recebido</th>
+                <th class="procedureValueColumn">R$ Valor do Procedimento</th>
+                <th class="receivedColumn">R$ Valor Recebido</th>
             </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
-            </tr>
-            <tr>
-                <td>26/01/2023</td>
-                <td>Fulano Ciclano Beltrano</td>
-                <td>Micropigmentação</td>
-                <td>R$2.500,20</td>
-                <td>R$700,99</td>
+            <tr th:each="procedure : ${data.procedureList}">
+                <td>[[${procedure.procedureDate}]]</td>
+                <td>[[${procedure.procedureCustomer}]]</td>
+                <td>[[${procedure.procedureType}]]</td>
+                <td>[[${procedure.procedureValue}]]</td>
+                <td>[[${procedure.valueReceived}]]</td>
             </tr>
         </table>
+        <h2>Total a receber: [[${data.totalReceived}]]</h2>
     </body>
 </html>
