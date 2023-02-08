@@ -1,4 +1,4 @@
-# <img src="icon.png" alt="drawing" width="28"/> Gerenciador de Procedimentos API [![version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://semver.org)
+# <img src="icon.png" alt="drawing" width="28"/> Gerenciador de Procedimentos API [![version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://semver.org)
 
 ### 1.0 - Apresentação :ledger:
 O Gerenciador de Procedimento é um microservice (Web Service) no estilo RESTful API. Onde foi desenvolvido para ser consumido por
@@ -20,6 +20,7 @@ com o tipo de procedimento.
 :white_check_mark:Bilioteca Lombok para geração de getters e setters.<br/>
 :white_check_mark:Biblioteca MapStruct para conversão de objetos.<br/>
 :white_check_mark:Biblioteca Apache POI para geração de arquivo Excel.<br/>
+:white_check_mark:Geração de arquivo PDF com Thymeleaf com layout HTML e CSS.<br/>
 :white_check_mark:Design Patter com a Strategy Enum.<br/>
 :white_check_mark:Testes unitários com JUnit e Mockito seguindo o padrão TDD (Test Driven Development).<br/>
 :white_check_mark:Padrão de arquitetura DDD (Domain Driven Design).<br/>
