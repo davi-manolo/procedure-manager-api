@@ -19,7 +19,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     @Scheduled(cron = "0 0 0 1 * ?", zone = "America/Sao_Paulo")
     public void cleanProceduresAfterThreeMonths() {
-        log.info("Task de limpeza de prodecimentos iniciado.");
+        log.info("Task de limpeza de procedimentos iniciado.");
         procedureService.deleteProcedureWithThreeMonths();
     }
 
