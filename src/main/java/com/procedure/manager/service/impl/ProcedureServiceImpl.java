@@ -10,7 +10,9 @@ import com.procedure.manager.service.ProcedureTypeService;
 import com.procedure.manager.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -40,6 +42,9 @@ public class ProcedureServiceImpl implements ProcedureService {
 
     @Autowired
     private UserService userService;
+
+    @Value("${config.app.properties.delete_after_months}")
+    private String deleteAfterMonths;
 
     @Override
     public void registerProcedure(ProcedureCreationDataVo procedureCreationDataVo) {
@@ -108,6 +113,31 @@ public class ProcedureServiceImpl implements ProcedureService {
         ProcedureVo procedureVo = getProcedure(procedureId);
         procedureVo.setDisabled(TRUE);
         procedureRepository.save(procedureMapper.voToModel(procedureVo));
+    }
+
+    @Override
+    @Transactional
+    public void deleteProcedureWithThreeMonths() {
+        LocalDateTime ldtNow = LocalDateTime.now();
+        LocalDateTime ldtMinus = ldtNow.minusMonths(Long.parseLong(deleteAfterMonths));
+        List<ProcedureModel> procedureModelList = procedureRepository.removeByRegistrationDateLessThan(ldtMinus);
+        if (procedureModelList.isEmpty()) {
+            log.info("Não existe procedimentos de {} meses atrás.", deleteAfterMonths);
+        } else {
+            StringBuilder sb = new StringBuilder();
+            procedureModelList.forEach(procedure -> {
+                sb.append("ID: ").append(procedure.getProcedureId()).append("\n");
+                sb.append("Registro no DB: ").append(procedure.getRegistrationDate()).append("\n");
+                sb.append("Registro do procedimento: ").append(procedure.getProcedureDate()).append("\n");
+                sb.append("Cliente: ").append(procedure.getCustomer()).append("\n");
+                sb.append("Tipo de procedimento: ").append(procedure.getProcedureType().getName()).append("\n");
+                sb.append("Valor procedimento: ").append(procedure.getValue()).append("\n");
+                sb.append("Valor recebido: ").append(procedure.getValueReceived()).append("\n");
+                sb.append("Realizado por: ").append(procedure.getUser().getName()).append("\n");
+                sb.append("\n");
+            });
+            log.info("\n" + "Lista de procedimentos excluídos:" + "\n\n" + "{}.", sb);
+        }
     }
 
     @Override

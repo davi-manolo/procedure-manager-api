@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -63,6 +64,8 @@ class ProcedureServiceUnitTest {
         this.dataSearchProcedureMonthVo = new DataSearchProcedureMonthVo(9, 2023, 1L);
         this.procedureId = 1L;
         this.userId = 1L;
+
+        ReflectionTestUtils.setField(procedureService, "deleteAfterMonths", "3");
     }
 
     @Test
@@ -259,6 +262,36 @@ class ProcedureServiceUnitTest {
 
         verify(procedureRepository).findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(any(), any(),any());
         verify(procedureMapper).modelListToVoList(anyList());
+
+    }
+
+    @Test
+    void givenTaskWhenCallDeleteProcedureWithThreeMonthsThenDeleteProcedures() {
+
+        List<ProcedureModel> procedureModelList = getProcedureModelList();
+
+        when(procedureRepository.removeByRegistrationDateLessThan(any())).thenReturn(procedureModelList);
+
+        procedureService.deleteProcedureWithThreeMonths();
+
+        assertNotNull(procedureModelList);
+
+        verify(procedureRepository).removeByRegistrationDateLessThan(any());
+
+    }
+
+    @Test
+    void givenTaskWhenCallDeleteProcedureWithThreeMonthsThenReturnEmptyProcedures() {
+
+        List<ProcedureModel> procedureModelList = getProcedureModelEmptyList();
+
+        when(procedureRepository.removeByRegistrationDateLessThan(any())).thenReturn(procedureModelList);
+
+        procedureService.deleteProcedureWithThreeMonths();
+
+        assertNotNull(procedureModelList);
+
+        verify(procedureRepository).removeByRegistrationDateLessThan(any());
 
     }
 

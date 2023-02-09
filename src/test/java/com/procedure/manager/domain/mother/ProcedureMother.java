@@ -7,6 +7,7 @@ import com.procedure.manager.domain.vo.ProcedureForFileVo;
 import com.procedure.manager.domain.vo.ProcedureVo;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.assertj.core.util.Lists;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -109,6 +110,14 @@ public class ProcedureMother {
 
     public static List<ProcedureForFileVo> getProcedureForFileVoList() {
         return List.of(getProcedureForFileVo(), getProcedureForFileVo());
+    }
+
+    public static List<ProcedureModel> getProcedureModelList() {
+        return List.of(getProcedureModel(), getProcedureModel());
+    }
+
+    public static List<ProcedureModel> getProcedureModelEmptyList() {
+        return Lists.emptyList();
     }
 
 }

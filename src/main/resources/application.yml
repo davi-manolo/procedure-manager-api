@@ -13,3 +13,8 @@ info:
 
 security:
   secret_key: 8ae1626b-7f9f-48c1-820d-7e23c164ddae
+
+config:
+  app:
+    properties:
+      delete_after_months: 3

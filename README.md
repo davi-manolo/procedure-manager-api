@@ -1,4 +1,4 @@
-# <img src="icon.png" alt="drawing" width="28"/> Gerenciador de Procedimentos API [![version](https://img.shields.io/badge/version-1.1.0-green.svg)](https://semver.org)
+# <img src="icon.png" alt="drawing" width="28"/> Gerenciador de Procedimentos API [![version](https://img.shields.io/badge/version-1.2.0-green.svg)](https://semver.org)
 
 ### 1.0 - Apresentação :ledger:
 O Gerenciador de Procedimento é um microservice (Web Service) no estilo RESTful API. Onde foi desenvolvido para ser consumido por
@@ -13,6 +13,7 @@ com o tipo de procedimento.
 :white_check_mark:Spring Boot JPA com PostgreSQL com criação automática.<br/>
 :white_check_mark:Spring Boot Security para requisições HTTPS.<br/>
 :white_check_mark:Spring Boot Validation para validar objetos de requisição.<br/>
+:white_check_mark:Spring Scheduled para agendamentos de tarefas agendadas com Cron (limpeza de banco de dados automática).<br/>
 :white_check_mark:Autenticação com JWT.<br/>
 :white_check_mark:Criptografia com Auth0 e BCrypt.<br/>
 :white_check_mark:Secret Key hospedado com AWS.<br/>

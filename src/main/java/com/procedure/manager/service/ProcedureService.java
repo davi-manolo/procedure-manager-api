@@ -19,6 +19,8 @@ public interface ProcedureService {
 
     void disableProcedure(Long procedureId);
 
+    void deleteProcedureWithThreeMonths();
+
     BigDecimal calculateAmountReceivableByMonth(DataSearchProcedureMonthVo dataSearchProcedureMonthVo);
 
 }

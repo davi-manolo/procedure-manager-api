@@ -15,4 +15,6 @@ public interface ProcedureRepository extends JpaRepository<ProcedureModel, Long>
     Optional<List<ProcedureModel>> findByRegistrationDateBetweenAndUser_userIdEqualsAndDisabledIsFalseOrderByRegistrationDateAsc(
             LocalDateTime startDate, LocalDateTime endDate, Long userId);
 
+    List<ProcedureModel> removeByRegistrationDateLessThan(LocalDateTime date);
+
 }
