@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    platform: postgres
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/procedure_manager_db
+    username: manolo
+    password: daiany
+
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
